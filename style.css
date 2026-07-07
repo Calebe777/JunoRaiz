@@ -63,10 +63,11 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(237, 237, 237, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(237, 237, 237, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .nav-in {
@@ -179,6 +180,8 @@ nav {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .nav-open .menu-overlay {
