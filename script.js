@@ -60,42 +60,37 @@ const counterObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('[data-to]').forEach(el => counterObserver.observe(el));
 
 // Interactive 3D Mouse Parallax & Tilt Effect on Hero Profile Capsule
-const heroSection = document.querySelector('.hero');
 const profileCapsule = document.querySelector('.hero-profile-capsule');
 const profileImg = document.querySelector('.hero-profile-capsule img');
 
-if (heroSection && profileCapsule) {
+if (profileCapsule) {
   let targetX = 0, targetY = 0;
   let currentX = 0, currentY = 0;
   let targetRotateX = 0, targetRotateY = 0;
   let currentRotateX = 0, currentRotateY = 0;
 
   window.addEventListener('mousemove', (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
 
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const mouseX = (e.clientX - centerX) / (window.innerWidth / 2);
-    const mouseY = (e.clientY - centerY) / (window.innerHeight / 2);
-
-    targetRotateX = Math.max(-20, Math.min(20, -mouseY * 18));
-    targetRotateY = Math.max(-20, Math.min(20, mouseX * 18));
-    targetX = Math.max(-30, Math.min(30, mouseX * 24));
-    targetY = Math.max(-24, Math.min(24, mouseY * 18));
+    targetRotateX = -dy * 22;
+    targetRotateY = dx * 22;
+    targetX = dx * 28;
+    targetY = dy * 20;
   });
 
   function animateHeroCapsule() {
-    currentX += (targetX - currentX) * 0.08;
-    currentY += (targetY - currentY) * 0.08;
-    currentRotateX += (targetRotateX - currentRotateX) * 0.08;
-    currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+    currentX += (targetX - currentX) * 0.1;
+    currentY += (targetY - currentY) * 0.1;
+    currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+    currentRotateY += (targetRotateY - currentRotateY) * 0.1;
 
-    profileCapsule.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+    profileCapsule.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg)`;
 
     if (profileImg) {
-      profileImg.style.transform = `scale(1.1) translate3d(${currentX * 0.3}px, ${currentY * 0.3}px, 15px)`;
+      profileImg.style.transform = `scale(1.15) translate3d(${(currentX * 0.35).toFixed(2)}px, ${(currentY * 0.35).toFixed(2)}px, 20px)`;
     }
 
     requestAnimationFrame(animateHeroCapsule);
