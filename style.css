@@ -187,12 +187,16 @@ nav {
 }
 
 .nav-links a {
-  color: var(--muted);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text);
   transition: color .2s;
 }
 
 .nav-links a:hover {
-  color: var(--text);
+  color: var(--muted);
 }
 
 .nav-cta {
@@ -202,12 +206,13 @@ nav {
 }
 
 .nav-btn-orcamento {
+  font-family: var(--display);
   background: var(--lime);
   color: #000000;
-  padding: 10px 24px;
+  padding: 8px 22px;
   border-radius: 100px;
   font-weight: 700;
-  font-size: .82rem;
+  font-size: 1rem;
   letter-spacing: 0.05em;
   transition: transform .15s, filter .15s;
   display: inline-flex;
@@ -662,12 +667,12 @@ body.nav-open {
 }
 
 .about-card h3 {
-  font-family: var(--display);
-  font-size: 1.5rem;
-  letter-spacing: 0.03em;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
   color: #FFFFFF;
   margin-bottom: 6px;
-  text-transform: uppercase;
 }
 
 .about-card p {
