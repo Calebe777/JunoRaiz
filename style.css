@@ -452,31 +452,34 @@ body.nav-open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 10;
 }
 
 .mouse-scroll {
-  width: 24px;
-  height: 38px;
-  border: 2px solid var(--muted);
-  border-radius: 14px;
+  width: 26px;
+  height: 42px;
+  border: 2px solid #5A5A5A;
+  border-radius: 16px;
   position: relative;
   display: block;
   transition: border-color 0.25s, transform 0.25s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .mouse-scroll:hover {
-  border-color: var(--text);
-  transform: translateY(2px);
+  border-color: #111111;
+  transform: translateY(3px);
 }
 
 .mouse-wheel {
   width: 4px;
-  height: 8px;
-  background: var(--muted);
+  height: 9px;
+  background: #5A5A5A;
   border-radius: 4px;
   position: absolute;
-  top: 7px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
   animation: mouseScrollAnim 1.8s infinite ease-in-out;
