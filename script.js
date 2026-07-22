@@ -70,25 +70,20 @@ if (heroSection && profileCapsule) {
   let targetRotateX = 0, targetRotateY = 0;
   let currentRotateX = 0, currentRotateY = 0;
 
-  heroSection.addEventListener('mousemove', (e) => {
+  window.addEventListener('mousemove', (e) => {
     const rect = heroSection.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    const mouseX = (e.clientX - centerX) / (rect.width / 2);
-    const mouseY = (e.clientY - centerY) / (rect.height / 2);
+    const mouseX = (e.clientX - centerX) / (window.innerWidth / 2);
+    const mouseY = (e.clientY - centerY) / (window.innerHeight / 2);
 
-    targetRotateX = -mouseY * 16;
-    targetRotateY = mouseX * 16;
-    targetX = mouseX * 22;
-    targetY = mouseY * 16;
-  });
-
-  heroSection.addEventListener('mouseleave', () => {
-    targetX = 0;
-    targetY = 0;
-    targetRotateX = 0;
-    targetRotateY = 0;
+    targetRotateX = Math.max(-20, Math.min(20, -mouseY * 18));
+    targetRotateY = Math.max(-20, Math.min(20, mouseX * 18));
+    targetX = Math.max(-30, Math.min(30, mouseX * 24));
+    targetY = Math.max(-24, Math.min(24, mouseY * 18));
   });
 
   function animateHeroCapsule() {
@@ -100,7 +95,7 @@ if (heroSection && profileCapsule) {
     profileCapsule.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
 
     if (profileImg) {
-      profileImg.style.transform = `scale(1.1) translate3d(${currentX * 0.25}px, ${currentY * 0.25}px, 15px)`;
+      profileImg.style.transform = `scale(1.1) translate3d(${currentX * 0.3}px, ${currentY * 0.3}px, 15px)`;
     }
 
     requestAnimationFrame(animateHeroCapsule);
