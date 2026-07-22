@@ -1379,8 +1379,8 @@ body.nav-open {
    FOOTER (REDESIGN MARQUEE)
    ========================================================== */
 .foot-marquee-section {
-  background: transparent;
-  padding: 80px 0 40px;
+  background: var(--bg);
+  padding: 60px 0 0;
   overflow: hidden;
   width: 100%;
 }
@@ -1390,26 +1390,27 @@ body.nav-open {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .foot-mq div {
   display: inline-block;
   font-family: var(--display);
+  font-weight: 800;
   font-size: clamp(4.5rem, 12vw, 9.5rem);
   line-height: 0.95;
   text-transform: uppercase;
   animation: ml 28s linear infinite;
-  color: var(--text);
+  color: #000000;
 }
 
 .foot-mq a {
-  color: var(--text);
+  color: #000000;
   transition: opacity 0.2s;
 }
 
 .foot-mq a:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .foot-mq .st {
@@ -1420,12 +1421,12 @@ body.nav-open {
 }
 
 .foot-meta-simple {
+  background: var(--dark-card);
   text-align: center;
   font-size: 0.85rem;
-  color: #666666;
+  color: #888888;
   letter-spacing: 0.05em;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  max-width: 1280px;
-  margin: 0 auto;
+  padding: 24px 0;
+  width: 100%;
+  font-family: var(--body);
 }
