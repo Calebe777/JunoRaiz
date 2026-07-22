@@ -1388,7 +1388,7 @@ body.nav-open {
    ========================================================== */
 .foot-marquee-section {
   background: var(--bg);
-  padding: 60px 0 0;
+  padding: 40px 0 0;
   overflow: hidden;
   width: 100%;
 }
@@ -1399,14 +1399,15 @@ body.nav-open {
   white-space: nowrap;
   width: 100%;
   margin-bottom: 0;
+  line-height: 0.8;
 }
 
 .foot-mq div {
   display: inline-block;
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(4.5rem, 12vw, 9.5rem);
-  line-height: 0.95;
+  font-size: clamp(5.5rem, 15vw, 11.5rem);
+  line-height: 0.8;
   text-transform: uppercase;
   animation: ml 28s linear infinite;
   color: #000000;
@@ -1423,18 +1424,11 @@ body.nav-open {
 
 .foot-mq .st {
   color: var(--lime);
-  margin: 0 40px;
-  font-size: clamp(3rem, 8vw, 6.5rem);
+  margin: 0 35px;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
   vertical-align: middle;
 }
 
 .foot-meta-simple {
-  background: transparent;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  padding: 10px 0 15px;
-  width: 100%;
-  font-family: var(--body);
+  display: none;
 }
