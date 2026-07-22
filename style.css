@@ -374,6 +374,7 @@ body.nav-open {
   position: relative;
   width: 100%;
   margin-bottom: 24px;
+  perspective: 1000px;
 }
 
 .hero-title-line {
@@ -406,18 +407,14 @@ body.nav-open {
   z-index: 2;
   position: relative;
   margin: -5vw 0;
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.4s;
 }
-
 
 .hero-profile-capsule:hover {
-  transform: scale(1.03) translateY(-4px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
 }
-
 
 .hero-profile-capsule img {
   width: 100%;
@@ -425,9 +422,9 @@ body.nav-open {
   object-fit: cover;
   object-position: center top;
   image-rendering: smooth;
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.1);
+  will-change: transform;
 }
 
 .hero-illustration {

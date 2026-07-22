@@ -58,3 +58,53 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('[data-to]').forEach(el => counterObserver.observe(el));
+
+// Interactive 3D Mouse Parallax & Tilt Effect on Hero Profile Capsule
+const heroSection = document.querySelector('.hero');
+const profileCapsule = document.querySelector('.hero-profile-capsule');
+const profileImg = document.querySelector('.hero-profile-capsule img');
+
+if (heroSection && profileCapsule) {
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let targetRotateX = 0, targetRotateY = 0;
+  let currentRotateX = 0, currentRotateY = 0;
+
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const mouseX = (e.clientX - centerX) / (rect.width / 2);
+    const mouseY = (e.clientY - centerY) / (rect.height / 2);
+
+    targetRotateX = -mouseY * 16;
+    targetRotateY = mouseX * 16;
+    targetX = mouseX * 22;
+    targetY = mouseY * 16;
+  });
+
+  heroSection.addEventListener('mouseleave', () => {
+    targetX = 0;
+    targetY = 0;
+    targetRotateX = 0;
+    targetRotateY = 0;
+  });
+
+  function animateHeroCapsule() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+    currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+    currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+    profileCapsule.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+
+    if (profileImg) {
+      profileImg.style.transform = `scale(1.1) translate3d(${currentX * 0.25}px, ${currentY * 0.25}px, 15px)`;
+    }
+
+    requestAnimationFrame(animateHeroCapsule);
+  }
+
+  animateHeroCapsule();
+}
