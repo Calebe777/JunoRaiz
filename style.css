@@ -1388,9 +1388,11 @@ body.nav-open {
    ========================================================== */
 .foot-marquee-section {
   background: var(--bg);
-  padding: 40px 0 0;
+  padding: 60px 0 0;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .foot-mq {
@@ -1398,8 +1400,10 @@ body.nav-open {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
-  margin-bottom: 0;
-  line-height: 0.8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
 }
 
 .foot-mq div {
@@ -1407,10 +1411,11 @@ body.nav-open {
   font-family: var(--display);
   font-weight: 800;
   font-size: clamp(5.5rem, 15vw, 11.5rem);
-  line-height: 0.8;
+  line-height: 0.72;
   text-transform: uppercase;
   animation: ml 28s linear infinite;
   color: #000000;
+  margin-bottom: -0.12em;
 }
 
 .foot-mq a {
