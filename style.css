@@ -1293,6 +1293,14 @@ body.nav-open {
   display: grid;
   place-items: center;
   transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.way .i img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: invert(1);
 }
 
 .way:hover .i {
@@ -1421,12 +1429,12 @@ body.nav-open {
 }
 
 .foot-meta-simple {
-  background: var(--dark-card);
+  background: transparent;
   text-align: center;
   font-size: 0.85rem;
-  color: #888888;
+  color: var(--muted);
   letter-spacing: 0.05em;
-  padding: 24px 0;
+  padding: 20px 0 40px;
   width: 100%;
   font-family: var(--body);
 }
