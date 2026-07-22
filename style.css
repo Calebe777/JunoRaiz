@@ -189,7 +189,7 @@ nav {
 .nav-links a {
   font-family: var(--display);
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.05em;
   color: var(--text);
   transition: color .2s;
@@ -211,7 +211,7 @@ nav {
   color: #000000;
   padding: 8px 22px;
   border-radius: 100px;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1rem;
   letter-spacing: 0.05em;
   transition: transform .15s, filter .15s;
@@ -512,7 +512,7 @@ body.nav-open {
   font-family: var(--display);
   font-size: clamp(3.5rem, 8vw, 6.5rem);
   line-height: 0.85;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
 }
 
@@ -598,7 +598,7 @@ body.nav-open {
 .section-header h2 {
   font-family: var(--display);
   font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 400;
+  font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--text);
   margin: 0;
@@ -667,12 +667,13 @@ body.nav-open {
 }
 
 .about-card h3 {
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 1.15rem;
-  letter-spacing: -0.01em;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
   color: #FFFFFF;
   margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
 .about-card p {
@@ -872,6 +873,7 @@ body.nav-open {
 
 .svc h3 {
   font-family: var(--display);
+  font-weight: 800;
   font-size: 1.8rem;
   letter-spacing: 0.02em;
   margin-bottom: 12px;
@@ -1255,7 +1257,7 @@ body.nav-open {
 
 .contact-info h2 {
   font-family: var(--display);
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(3rem, 7vw, 6.2rem);
   line-height: 0.85;
   margin-bottom: 40px;
