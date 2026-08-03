@@ -113,6 +113,11 @@ body {
   overflow-x: hidden;
 }
 
+p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
 /* Subtle grain overlay for premium texture */
 body::after {
   content: "";
@@ -359,10 +364,10 @@ body.nav-open {
 }
 
 .hero-sub {
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-size: 1.05rem;
   color: var(--text);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
   margin-bottom: 20px;
   font-weight: 500;
 }
@@ -374,14 +379,13 @@ body.nav-open {
   position: relative;
   width: 100%;
   margin-bottom: 24px;
-  perspective: 1000px;
 }
 
 .hero-title-line {
   font-family: var(--display);
   font-size: clamp(5.5rem, 15vw, 12.5rem);
   line-height: 0.8;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.05em;
   margin: 0;
   color: var(--text);
   z-index: 1;
@@ -400,20 +404,20 @@ body.nav-open {
 .hero-profile-capsule {
   width: clamp(160px, 22vw, 240px);
   height: clamp(240px, 33vw, 360px);
-  border-radius: 120px;
+  border-radius: 9999px;
   overflow: hidden;
-  background: #FFFFFF;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  background: transparent;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.18);
   z-index: 2;
   position: relative;
   margin: -5vw 0;
-  transform-style: preserve-3d;
   will-change: transform;
-  transition: box-shadow 0.4s;
+  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
 .hero-profile-capsule:hover {
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 35px 75px rgba(0, 0, 0, 0.28);
 }
 
 .hero-profile-capsule img {
@@ -423,8 +427,7 @@ body.nav-open {
   object-position: center top;
   image-rendering: smooth;
   pointer-events: none;
-  transform: scale(1.1);
-  will-change: transform;
+  display: block;
 }
 
 .hero-illustration {
@@ -440,10 +443,10 @@ body.nav-open {
 }
 
 .hero-desc {
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: 1.05rem;
   color: var(--muted);
   max-width: 50ch;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0 auto 40px;
   font-weight: 400;
 }
@@ -645,7 +648,7 @@ body.nav-open {
 }
 
 .about-left p {
-  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  font-size: 1.05rem;
   color: var(--text);
   line-height: 1.6;
   font-weight: 500;
@@ -687,9 +690,10 @@ body.nav-open {
 }
 
 .about-card p {
-  font-size: 0.92rem;
+  font-size: 1.05rem;
   color: #A0A0A0;
   margin: 0;
+  line-height: 1.6;
 }
 
 @media(max-width: 860px) {
@@ -891,8 +895,8 @@ body.nav-open {
 }
 
 .svc p {
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.6;
   margin-bottom: 24px;
   flex-grow: 1;
 }
@@ -1158,7 +1162,8 @@ body.nav-open {
   color: rgba(0, 0, 0, 0.8);
   max-width: 45ch;
   margin-top: 10px;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .btn-black {
@@ -1243,7 +1248,7 @@ body.nav-open {
 
 .ans p {
   padding-bottom: 26px;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   line-height: 1.6;
 }
 

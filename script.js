@@ -59,39 +59,49 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-to]').forEach(el => counterObserver.observe(el));
 
-// Interactive 3D Mouse Parallax & Tilt Effect on Hero Profile Capsule
+// Interactive 2D Mouse Parallax & Smooth Ambient Float (Zero Image Deformation)
 const profileCapsule = document.querySelector('.hero-profile-capsule');
-const profileImg = document.querySelector('.hero-profile-capsule img');
 
 if (profileCapsule) {
   let targetX = 0, targetY = 0;
   let currentX = 0, currentY = 0;
-  let targetRotateX = 0, targetRotateY = 0;
-  let currentRotateX = 0, currentRotateY = 0;
+  let floatTime = 0;
+  let isHovered = false;
+
+  profileCapsule.addEventListener('mouseenter', () => { isHovered = true; });
+  profileCapsule.addEventListener('mouseleave', () => { isHovered = false; });
 
   window.addEventListener('mousemove', (e) => {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    const dx = (e.clientX - cx) / cx;
-    const dy = (e.clientY - cy) / cy;
-
-    targetRotateX = -dy * 22;
-    targetRotateY = dx * 22;
-    targetX = dx * 28;
-    targetY = dy * 20;
+    const rect = profileCapsule.getBoundingClientRect();
+    const capsuleCenterX = rect.left + rect.width / 2;
+    const capsuleCenterY = rect.top + rect.height / 2;
+    
+    if (isHovered) {
+      const dx = (e.clientX - capsuleCenterX) / (rect.width / 2);
+      const dy = (e.clientY - capsuleCenterY) / (rect.height / 2);
+      targetX = dx * 16;
+      targetY = dy * 12;
+    } else {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      targetX = dx * 18;
+      targetY = dy * 14;
+    }
   });
 
   function animateHeroCapsule() {
-    currentX += (targetX - currentX) * 0.1;
-    currentY += (targetY - currentY) * 0.1;
-    currentRotateX += (targetRotateX - currentRotateX) * 0.1;
-    currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+    floatTime += 0.025;
+    const ambientFloatY = Math.sin(floatTime) * 6;
 
-    profileCapsule.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg)`;
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
 
-    if (profileImg) {
-      profileImg.style.transform = `scale(1.15) translate3d(${(currentX * 0.35).toFixed(2)}px, ${(currentY * 0.35).toFixed(2)}px, 20px)`;
-    }
+    const totalY = currentY + ambientFloatY;
+
+    // Apply pure 2D translation (no rotation, zero deformation)
+    profileCapsule.style.transform = `translate3d(${currentX.toFixed(2)}px, ${totalY.toFixed(2)}px, 0)`;
 
     requestAnimationFrame(animateHeroCapsule);
   }
