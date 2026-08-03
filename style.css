@@ -114,7 +114,7 @@ body {
 }
 
 p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
 }
 
@@ -443,12 +443,13 @@ body.nav-open {
 }
 
 .hero-desc {
-  font-size: 1.05rem;
-  color: var(--muted);
-  max-width: 50ch;
+  font-size: 1.1rem;
+  color: var(--text);
+  max-width: 54ch;
   line-height: 1.6;
   margin: 0 auto 40px;
   font-weight: 400;
+  opacity: 0.9;
 }
 
 .hero-scroll {
@@ -648,17 +649,18 @@ body.nav-open {
 }
 
 .about-left p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text);
   line-height: 1.6;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 24px;
 }
 
 .about-left p:last-child {
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--text);
   font-weight: 400;
+  opacity: 0.9;
 }
 
 .about-cards {
@@ -690,7 +692,7 @@ body.nav-open {
 }
 
 .about-card p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: #A0A0A0;
   margin: 0;
   line-height: 1.6;
@@ -895,7 +897,7 @@ body.nav-open {
 }
 
 .svc p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 24px;
   flex-grow: 1;
@@ -1162,11 +1164,11 @@ body.nav-open {
 }
 
 .shop p {
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.8);
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.85);
   max-width: 45ch;
   margin-top: 10px;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
 }
 
@@ -1252,7 +1254,7 @@ body.nav-open {
 
 .ans p {
   padding-bottom: 26px;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
 }
 
