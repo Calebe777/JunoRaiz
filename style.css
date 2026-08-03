@@ -919,6 +919,10 @@ body.nav-open {
   color: var(--lime);
 }
 
+.card-gray .more {
+  color: #000000;
+}
+
 .svc:hover .more {
   transform: translateX(4px);
 }
