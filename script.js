@@ -89,7 +89,7 @@ if (profileCapsule) {
       targetX = dx * 18;
       targetY = dy * 14;
     }
-  });
+  }, { passive: true });
 
   function animateHeroCapsule() {
     floatTime += 0.025;
