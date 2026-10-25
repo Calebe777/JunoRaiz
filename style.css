@@ -1280,7 +1280,7 @@ body.nav-open {
   font-family: var(--display);
   font-weight: 800;
   font-size: clamp(3rem, 7vw, 6.2rem);
-  line-height: 0.85;
+  line-height: 1.05;
   margin-bottom: 40px;
   color: var(--text);
 }
