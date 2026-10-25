@@ -1109,6 +1109,7 @@ body.nav-open {
 
 .portfolio-more-link a {
   font-family: var(--display);
+  font-weight: 800;
   font-size: 1.4rem;
   letter-spacing: 0.08em;
   color: var(--text);
