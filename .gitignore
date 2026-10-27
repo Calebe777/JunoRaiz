@@ -1,0 +1,17 @@
+# Arquivos-fonte de design (ficam no Drive, não no repo)
+*.psd
+*.ai
+*.fig
+
+# Pastas de material bruto dos projetos (imagens em alta, não usadas pelo site)
+PROJETOS/
+PÁGINAS NOVAS/
+
+# Pacotes de entrega
+*.zip
+*.rar
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
