@@ -344,9 +344,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
 html,body{height:100%}
 body{display:flex;flex-direction:column;min-height:100vh}
 .soon{flex:1;min-height:calc(100vh - 72px - 80px);display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 0}
-.soon h1{font-size:clamp(44px,7.5vw,112px);line-height:.95;font-weight:800;letter-spacing:0}
-.soon h1 .accent{color:var(--lime)}
-body::after{display:none}
+.soon h1{font-size:clamp(64px,13vw,200px);line-height:.88}
 .soon .ring{position:absolute;left:50%;top:50%;width:min(80vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(202,255,0,.25);animation:spin 40s linear infinite;pointer-events:none}
 .soon .ring::after{content:"✦";position:absolute;top:-14px;left:50%;transform:translateX(-50%);color:var(--lime);font-size:22px}
 .soon .ring.r2{width:min(60vw,540px);border-color:rgba(255,255,255,.08);animation-duration:26s;animation-direction:reverse}
@@ -373,8 +371,10 @@ body::after{display:none}
 </nav>
 
 <main class="hero dark soon">
-    <div class="wrap">
-    <h1>Vamos viver<br>esse <span class="accent">dia?</span></h1>
+  <div class="hero-bg" aria-hidden="true"><div class="scan"></div></div>
+  <div class="ring" aria-hidden="true"></div><div class="ring r2" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1>Vamos viver<br>esse <span class="lime">dia?</span></h1>
   </div>
 </main>
 
