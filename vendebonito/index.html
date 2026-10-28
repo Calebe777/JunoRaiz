@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0F0F0D">
+  <title>Vende Bonito | Campanhas de Black Friday pela JUNO</title>
+  <meta name="description" content="Sua Black Friday com uma imagem profissional. Pacotes de criativos a partir de R$ 297 e peças avulsas a partir de R$ 14. Vende Bonito, por JUNO Estúdio Criativo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:wght@400;500;600;700;800&display=swap">
+  <style>
+/* Layout: página escura de rolagem única, blocos centrados, uma faixa marquee e um bloco de preço no fim. Dark-first, tema único (identidade JUNO). */
+:root{
+  --bg:#0F0F0D;
+  --bg-2:#161614;
+  --line:#2A2A26;
+  --fg:#ECE7DE;
+  --muted:#9C958A;
+  --dim:#6E685E;
+  --wa:#25D366;
+  --wa-ink:#06250F;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body-font:"DM Sans","Arial",sans-serif;
+  --maxw:1120px;
+  --copyw:62ch;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--body-font);font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+::selection{background:var(--fg);color:var(--bg)}
+
+/* ---------- grão + luz ambiente ---------- */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(60% 40% at 50% -5%, rgba(236,231,222,.10), transparent 70%),
+    radial-gradient(40% 30% at 50% 110%, rgba(156,149,138,.10), transparent 70%);
+}
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));}
+
+/* ---------- header ---------- */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:rgba(15,15,13,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--bg)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{height:26px;width:auto;display:block}
+.logo path{fill:var(--fg)}
+.nav .pill{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:7px 14px;white-space:nowrap}
+.nav .pill b{color:var(--fg);font-weight:700}
+
+/* ---------- tipografia ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);font-weight:600}
+.eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:var(--muted);opacity:.6}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:.98;letter-spacing:-.025em;text-align:center}
+h2{font-size:clamp(38px,6.4vw,76px);font-weight:900;font-stretch:95%}
+h2 .lt{font-weight:300;font-stretch:100%;color:var(--muted);letter-spacing:-.02em}
+h2 .it{font-family:var(--display);font-style:normal;font-weight:400;letter-spacing:-.01em;font-variation-settings:"opsz" 144}
+.lead{color:var(--muted);max-width:var(--copyw);margin:0 auto;text-align:center;font-size:clamp(17px,1.5vw,20px);line-height:1.6}
+.lead b{color:var(--fg);font-weight:600}
+section{padding-block:clamp(72px,10vw,140px);text-align:center}
+.stack{display:flex;flex-direction:column;align-items:center;gap:22px}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:16px 26px;
+  font-weight:700;font-size:16px;text-decoration:none;letter-spacing:-.01em;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn-wa{background:var(--wa);color:var(--wa-ink);box-shadow:0 0 0 0 rgba(37,211,102,.4)}
+.btn-wa:hover{box-shadow:0 14px 40px -10px rgba(37,211,102,.55)}
+.btn-wa svg{width:22px;height:22px;fill:currentColor}
+.btn-ghost{border:1px solid var(--line);color:var(--fg);background:transparent}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn .arrow{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.12);font-size:14px}
+
+/* ---------- HERO ---------- */
+.hero{padding-block:clamp(70px,9vw,120px) clamp(60px,8vw,110px)}
+.hero .stack{gap:28px}
+.campaign{display:flex;flex-direction:column;align-items:center;line-height:.86;letter-spacing:-.045em}
+.campaign .l1{font-size:clamp(78px,16vw,210px);font-weight:900;font-stretch:88%;text-transform:uppercase;
+  background:linear-gradient(180deg,var(--fg) 0%,#CFC8BC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.campaign .l2{font-family:var(--display);font-style:normal;font-weight:300;font-size:clamp(72px,15vw,196px);
+  margin-top:-.08em;color:var(--fg);font-variation-settings:"opsz" 144;letter-spacing:-.02em;text-transform:lowercase}
+.campaign .l2 em{font-style:normal;color:var(--muted)}
+.hero .sub{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hero .cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:6px}
+.hero .proof{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 28px;font-size:13px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.hero .proof span::before{content:"✓";margin-right:8px;color:var(--fg)}
+
+/* entrada do hero */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero .stack>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero .stack>*:nth-child(1){animation-delay:.05s}
+.hero .stack>*:nth-child(2){animation-delay:.18s}
+.hero .stack>*:nth-child(3){animation-delay:.34s}
+.hero .stack>*:nth-child(4){animation-delay:.48s}
+.hero .stack>*:nth-child(5){animation-delay:.6s}
+.hero .stack>*:nth-child(6){animation-delay:.72s}
+
+/* ---------- MARQUEE ---------- */
+.marquee{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding-block:14px;
+  font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:600;position:relative;z-index:1}
+.marquee .track{display:inline-flex;gap:0;animation:scroll 32s linear infinite;will-change:transform}
+.marquee span{padding-inline:28px}
+.marquee span i{font-style:normal;color:var(--fg)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- reveal ao rolar (resting state visível) ---------- */
+@supports (animation-timeline: view()){
+  .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+}
+
+/* ---------- DOR ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;text-align:left}
+.card{border:1px solid var(--line);background:var(--bg-2);border-radius:18px;padding:26px;min-width:0;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.card:hover{transform:translateY(-4px);border-color:var(--muted)}
+.card .k{font-family:var(--display);font-style:normal;font-size:34px;line-height:1;color:var(--muted);margin-bottom:14px;font-variation-settings:"opsz" 72}
+.card h3{font-size:19px;font-weight:700;text-align:left;letter-spacing:-.01em;margin-bottom:8px;line-height:1.2}
+.card p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+
+/* ---------- COMPARATIVO ---------- */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px;text-align:left}
+.cmp{border-radius:18px;padding:28px;min-width:0;border:1px solid var(--line)}
+.cmp.bad{background:transparent;color:var(--muted)}
+.cmp.good{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cmp .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;opacity:.7;margin-bottom:16px}
+.cmp ul{list-style:none;padding:0;margin:0;display:grid;gap:12px;font-size:16px}
+.cmp li{display:flex;gap:12px;align-items:flex-start;line-height:1.4}
+.cmp li::before{content:"—";flex:none;opacity:.6}
+.cmp.good li::before{content:"✓";opacity:1}
+
+/* ---------- ENTREGAS ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px;text-align:left}
+.step{border-top:1px solid var(--line);padding-top:18px;min-width:0}
+.step .n{font-family:var(--display);font-style:normal;font-size:40px;color:var(--muted);line-height:1;font-variation-settings:"opsz" 144}
+.step h3{text-align:left;font-size:18px;margin:12px 0 6px;letter-spacing:-.01em;line-height:1.2}
+.step p{margin:0;color:var(--muted);font-size:15px}
+
+/* ---------- PREÇOS ---------- */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;text-align:left;align-items:stretch}
+.price{border:1px solid var(--line);border-radius:22px;padding:28px;background:var(--bg-2);display:flex;flex-direction:column;gap:18px;min-width:0;position:relative;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.price:hover{transform:translateY(-6px);border-color:var(--muted)}
+.price.hot{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.price.hot .muted{color:#4F4A42}
+.price .ribbon{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--bg);color:var(--fg);
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.price .name{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.price .val{font-size:clamp(40px,4.6vw,56px);font-weight:900;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.price .val small{font-size:.42em;font-weight:600;letter-spacing:0;vertical-align:top;margin-right:4px}
+.price .was{font-family:var(--display);font-style:normal;font-size:17px;text-decoration:line-through;opacity:.6}
+.price ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:15px;flex:1}
+.price li{display:flex;gap:10px;line-height:1.4}
+.price li::before{content:"✓";flex:none}
+.price .btn{justify-content:center;width:100%}
+.price.hot .btn-ghost{border-color:var(--bg);color:var(--bg)}
+.price.hot .btn-ghost:hover{background:var(--bg);color:var(--fg)}
+.muted{color:var(--muted)}
+.fine{font-size:13px;color:var(--dim);margin-top:26px;text-align:center}
+
+/* ---------- CTA FINAL ---------- */
+.final{border-top:1px solid var(--line)}
+.final h2{font-size:clamp(44px,8vw,110px)}
+.timer{display:inline-flex;gap:14px;font-variant-numeric:tabular-nums;font-weight:900;font-size:clamp(28px,5vw,52px);letter-spacing:-.03em;line-height:1}
+.timer div{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:3ch}
+.timer small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.timer .sep{color:var(--muted);font-weight:300}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding-block:34px;color:var(--muted);font-size:13px}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+footer .logo{height:18px}
+footer .row span{display:inline-flex;gap:14px;flex-wrap:wrap}
+
+/* flutuante whatsapp */
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;
+  width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;
+  box-shadow:0 14px 30px -8px rgba(37,211,102,.6);animation:pulse 2.6s ease-in-out infinite}
+.fab svg{width:30px;height:30px;fill:var(--wa-ink)}
+@keyframes pulse{0%,100%{box-shadow:0 14px 30px -8px rgba(37,211,102,.6),0 0 0 0 rgba(37,211,102,.45)}60%{box-shadow:0 14px 30px -8px rgba(37,211,102,.6),0 0 0 18px rgba(37,211,102,0)}}
+
+@media (max-width:900px){
+  .grid3,.prices,.steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .grid3,.prices,.steps,.compare{grid-template-columns:1fr}
+  .nav .pill{display:none}
+  .btn{padding:15px 22px;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+/* JUNO · Vende Bonito / versão comercial enxuta */
+section{padding-block:clamp(58px,7vw,96px)}
+.hero{padding-block:clamp(70px,8vw,118px) clamp(62px,7vw,88px)}
+.hero .stack{gap:24px}
+.hero .lead{max-width:710px}
+.nav .btn{font-size:13px;padding:10px 18px}
+.btn-primary{background:var(--fg);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 12px 34px -15px rgba(236,231,222,.45)}
+.section-plans{background:var(--bg-2);border-block:1px solid var(--line)}
+.section-plans .lead{max-width:670px}
+.prices{width:100%;margin-top:30px;gap:16px}
+.price{gap:14px;padding:25px;border-radius:20px}
+.price .was{font-size:16px}
+.price .btn{font-size:14px;padding:13px 12px;margin-top:3px;text-align:center}
+.price.hot .btn-ghost{border-color:var(--bg);color:var(--bg)}
+.price.hot .btn-ghost:hover{background:var(--bg);color:var(--fg)}
+.price ul{gap:12px}
+.price li{align-items:flex-start}
+.section-avulsos .lead{max-width:680px}
+.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;margin-top:24px;text-align:left}
+.service{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--bg-2);border-radius:14px;padding:17px 18px;transition:border-color .2s,transform .2s;text-decoration:none;min-width:0}
+.service:hover{border-color:var(--muted);transform:translateY(-2px)}
+.service:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.service-name{font-size:16px;font-weight:700;line-height:1.2;min-width:0;flex:1}
+.service-name small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:5px;line-height:1.45}
+.service-prices{display:flex;flex-direction:column;align-items:flex-end;gap:1px;white-space:nowrap;flex:none}
+.service-old{font-family:var(--display);font-style:normal;color:var(--muted);font-size:13px;line-height:1.2;text-decoration:line-through}
+.service-price{white-space:nowrap;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.service-arrow{color:var(--muted);font-size:17px}
+.section-avulsos .fine{max-width:760px;line-height:1.6}
+.section-how{background:var(--bg-2);border-block:1px solid var(--line)}
+.steps.compact{grid-template-columns:repeat(3,1fr);gap:26px;width:100%;margin-top:26px}
+.steps.compact .step{padding-top:20px}
+.final{border-top:0}
+.final h2{font-size:clamp(40px,7vw,88px)}
+.final .lead{max-width:610px}
+.contact-note{font-size:14px;margin:0}
+.contact-note b{color:var(--fg)}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+.fine{max-width:870px;line-height:1.65;margin:8px auto 0}
+@media(max-width:900px){.prices{grid-template-columns:1fr 1fr}.price.hot{grid-column:span 1}}
+@media(max-width:660px){
+  .prices,.service-grid,.steps.compact{grid-template-columns:1fr}
+  .price{padding:23px}
+  .service{padding:16px 15px}
+  .service-price{font-size:18px}
+  .hero .lead{font-size:17px}
+  .hero .proof{font-size:11px;gap:9px 16px}
+  .hero .cta-row{width:100%}
+  .hero .cta-row .btn{justify-content:center;flex:1 1 auto}
+  .eyebrow{font-size:10px;letter-spacing:.11em}
+  .final h2{font-size:clamp(36px,10vw,54px)}
+  footer .row{justify-content:center;text-align:center}
+}
+@media(max-width:390px){.nav .btn{padding:10px 12px;font-size:12px}.campaign .l1{font-size:clamp(68px,16vw,210px)}.campaign .l2{font-size:clamp(66px,15vw,196px)}}
+
+
+/* NOVA DIREÇÃO CRIATIVA — dois tipos sans-serif: Archivo (titulos) + DM Sans (texto). */
+h1,h2,h3,.name,.val,.step .n,.service-price,.ribbon {font-family:var(--display)}
+h2 {font-weight:600;line-height:1.06;letter-spacing:-.038em}
+h2 strong {font:inherit;font-weight:900;color:var(--fg)}
+h2 .lt,h2 .it {font-family:var(--display);font-style:normal;font-weight:900;color:var(--fg)}
+.price .was,.step .n,.card .k {font-family:var(--display);font-style:normal;font-variation-settings:normal}
+.step .n{font-weight:800;letter-spacing:-.04em}
+
+/* Logos originais em SVG com viewBox ajustado (sem alterar os desenhos). */
+.nav-brand{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none;min-width:0}
+.nav-brand img{display:block;width:clamp(145px,16vw,185px);height:auto;filter:brightness(0) invert(1)}
+.footer-brand img{display:block;width:160px;height:auto;filter:brightness(0) invert(1)}
+.nav .pill{margin:auto}
+
+/* Vídeo de ondas escurecido + camada fosca para manter o logotipo legível. */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(66px,8vw,106px) clamp(74px,9vw,112px);background:#0A0B0C}
+.hero .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-2;opacity:.58;filter:brightness(.75) contrast(1.06) saturate(.55) blur(1.25px);transform:scale(1.012);pointer-events:none}
+.hero .hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,9,10,.56) 0%,rgba(8,9,10,.43) 36%,rgba(8,9,10,.69) 80%,rgba(15,15,13,.96) 100%)}
+.hero .wrap{z-index:1;position:relative}
+.hero .stack{gap:26px}
+.hero-brand{margin:0 auto;display:block;width:min(100%,740px);line-height:0}
+.hero-brand img{display:block;width:100%;height:auto;max-height:400px;object-fit:contain;filter:drop-shadow(0 6px 28px rgba(0,0,0,.18))}
+.hero .lead{color:#E4E2DB;max-width:58ch;text-shadow:0 1px 10px rgba(0,0,0,.28)}
+.hero .lead b{color:#fff}
+.hero .proof{color:#D2D0CA}
+.hero .proof span::before{color:#C8FC61}
+.hero .btn-ghost{background:rgba(12,13,13,.36);border-color:rgba(246,243,237,.38)}
+.hero .btn-ghost:hover{background:rgba(12,13,13,.6)}
+.hero .stack>*{animation:rise .75s cubic-bezier(.2,.8,.2,1) both}
+.hero .stack>*:nth-child(1){animation-delay:.06s}
+.hero .stack>*:nth-child(2){animation-delay:.19s}
+.hero .stack>*:nth-child(3){animation-delay:.31s}
+.hero .stack>*:nth-child(4){animation-delay:.43s}
+@media(max-width:600px){
+ .nav{gap:12px;padding-block:12px}
+ .nav-brand img{width:128px}
+ .nav .pill{display:none}
+ .nav .btn{font-size:12px;padding:10px 12px;gap:4px}
+ .hero{padding-top:62px;padding-bottom:74px}
+ .hero-brand{width:min(100%,540px)}
+ .hero .hero-video{object-position:54% center}
+ .hero .proof{gap:8px 18px;font-size:11px}
+ .footer-brand img{width:142px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero .hero-video{display:none}
+ .hero{background:#0F0F0D url('/vendebonito/assets/agua-escura-poster.jpg') center / cover no-repeat}
+}
+
+/* AJUSTE DE ENQUADRAMENTO DOS LOGOS — mantém todos os traços visíveis */
+.nav-brand img { width: clamp(108px, 10vw, 138px); height:auto; max-width:100%; object-fit:contain; }
+.footer-brand img { width: 126px; height:auto; object-fit:contain; }
+.hero-brand { width:min(82vw, 560px); max-width:100%; margin-inline:auto; }
+.hero-brand img { width:100%; height:auto; max-height:none; object-fit:contain; }
+@media (max-width: 600px) {
+  .nav-brand img { width: 104px; }
+  .footer-brand img { width: 112px; }
+  .hero-brand { width:min(84vw, 335px); }
+}
+@media (max-width: 360px) {
+  .nav-brand img { width: 94px; }
+  .hero-brand { width:min(84vw, 285px); }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true"><defs><symbol id="wa" viewBox="0 0 32 32"><path d="M16 2.9C8.8 2.9 2.9 8.8 2.9 16c0 2.5.7 4.9 2 7L2.8 29l6.2-2c2.1 1.1 4.5 1.7 7 1.7 7.2 0 13.1-5.9 13.1-13.1S23.2 2.9 16 2.9zm0 23.9c-2.2 0-4.4-.6-6.2-1.7l-.4-.3-3.7 1.2 1.2-3.6-.3-.4C5.4 20 4.9 18 4.9 16 4.9 9.9 9.9 4.9 16 4.9S27.1 9.9 27.1 16 22.1 26.8 16 26.8zm6-8.1c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.8-1-2.4-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.6 5.8 5.1.8.3 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6 0-.2-.3-.3-.6-.4z"/></symbol></defs></svg>
+<header>
+<div class="wrap nav">
+<a aria-label="JUNO Estúdio Criativo — voltar ao início" class="nav-brand" href="#inicio"><img alt="JUNO Estúdio Criativo" src="/vendebonito/assets/juno.svg"/></a>
+<span class="pill">Black Friday <b>2026</b></span>
+<a class="btn btn-wa" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20a%20campanha%20Vende%20Bonito%20e%20quero%20conversar%20sobre%20a%20Black%20Friday." rel="noopener" target="_blank"><svg aria-hidden="true"><use href="#wa"></use></svg>Fale com a JUNO</a>
+</div>
+</header>
+<main>
+<!-- 01 / A promessa -->
+<section aria-label="Campanha Vende Bonito: Black Friday 2026" class="hero" id="inicio"><video aria-hidden="true" autoplay="" class="hero-video" loop="" muted="" playsinline="" poster="/vendebonito/assets/agua-escura-poster.jpg" preload="metadata" tabindex="-1"><source src="/vendebonito/assets/agua-escura-otimizada.mp4" type="video/mp4"/></video><div aria-hidden="true" class="hero-shade"></div>
+<div class="wrap stack">
+
+<h1 class="hero-brand"><img alt="Vende Bonito" src="/vendebonito/assets/vende-bonito.svg"/></h1>
+
+<p class="lead">Sua loja cuida das ofertas. <b>A JUNO cuida da imagem da sua Black Friday.</b> Criamos posts, stories e materiais de campanha com visual profissional, sem você precisar improvisar tudo de última hora.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="#valores">Conhecer os pacotes <span aria-hidden="true" class="arrow">↗</span></a>
+<a class="btn btn-ghost" href="#avulsos">Quero só uma arte</a>
+</div>
+<div class="proof"><span>Artes prontas para publicar</span><span>Para lojas e negócios</span><span>50% no início + 50% na entrega</span></div>
+</div>
+</section>
+<!-- 02 / Pacotes -->
+<section class="section-plans" id="valores">
+<div class="wrap stack">
+
+<h2>Escolha seu pacote.<br/><strong>A gente cuida do visual.</strong></h2>
+<p class="lead">Do básico ao completo, uma campanha feita para a sua empresa aparecer com mais profissionalismo. <b>Escolha o que faz sentido para o seu negócio.</b></p>
+<div class="prices">
+<article class="price"><div class="name">Pacote Criativos</div><div class="val"><small>R$</small>297</div><div class="was">de R$ 397</div><ul><li>6 posts para feed (aquecimento, oferta e última chamada)</li><li>6 stories com chamada para ação</li><li>1 capa para WhatsApp / status</li></ul><a class="btn btn-ghost" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Quero%20contratar%20Pacote%20Criativos%20da%20Black%20Friday%20por%20R%24%20297.%20Podemos%20conversar%3F" rel="noopener" target="_blank">Quero o Pacote Criativos <span aria-hidden="true">↗</span></a></article><article class="price hot"><div class="ribbon">Recomendado</div><div class="name">Campanha Completa</div><div class="val"><small>R$</small>497</div><div class="was">de R$ 697</div><ul><li>Identidade visual da Black Friday (paleta, tipografia e elementos)</li><li>10 posts para feed + 10 stories</li><li>1 banner para site ou vitrine digital</li><li>Capa de WhatsApp, foto de perfil e destaque</li><li>Guia de uso em 1 página</li></ul><a class="btn btn-ghost" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Quero%20contratar%20Campanha%20Completa%20da%20Black%20Friday%20por%20R%24%20497.%20Podemos%20conversar%3F" rel="noopener" target="_blank">Quero a Campanha Completa <span aria-hidden="true">↗</span></a></article><article class="price"><div class="name">Campanha + Impressos</div><div class="val"><small>R$</small>697</div><div class="was">de R$ 997</div><ul><li>Tudo da Campanha Completa</li><li>Cartaz e etiqueta de preço para a loja física</li><li>Flyer ou cardápio de ofertas</li><li>Arte de adesivo de vitrine</li><li>Arquivos finais preparados para gráfica</li></ul><a class="btn btn-ghost" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Quero%20contratar%20Campanha%20%2B%20Impressos%20da%20Black%20Friday%20por%20R%24%20697.%20Podemos%20conversar%3F" rel="noopener" target="_blank">Quero Campanha + Impressos <span aria-hidden="true">↗</span></a></article>
+</div>
+<p class="fine">Os valores incluem apenas a criação das artes. Não incluem publicação, tráfego pago, impressão ou instalação. A entrega é feita em arquivos finais para uso digital e/ou gráfica, sem arquivos editáveis.</p>
+</div>
+</section>
+<!-- 03 / Avulsos -->
+<section class="section-avulsos" id="avulsos">
+<div class="wrap stack">
+
+<h2>Precisa de uma peça só?<br/><strong>Também fazemos.</strong></h2>
+<p class="lead">Sem precisar contratar um pacote. Escolha a peça que falta para sua campanha e fale direto com a JUNO.</p>
+<div class="service-grid">
+<a aria-label="Pedir Post para feed por R$ 28 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Post%20para%20feed%20por%20R%24%2028.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Post para feed<small>Arte estática, uma peça</small></span>
+<span class="service-prices"><del class="service-old">R$ 40</del><strong class="service-price">R$ 28</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Story promocional por R$ 14 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Story%20promocional%20por%20R%24%2014.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Story promocional<small>Uma peça vertical</small></span>
+<span class="service-prices"><del class="service-old">R$ 20</del><strong class="service-price">R$ 14</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Carrossel (até 5 telas) por R$ 84 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Carrossel%20%28at%C3%A9%205%20telas%29%20por%20R%24%2084.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Carrossel (até 5 telas)<small>Design de até cinco páginas</small></span>
+<span class="service-prices"><del class="service-old">R$ 120</del><strong class="service-price">R$ 84</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Capa para WhatsApp / status por R$ 21 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Capa%20para%20WhatsApp%20/%20status%20por%20R%24%2021.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Capa para WhatsApp / status<small>Arte para divulgação da campanha</small></span>
+<span class="service-prices"><del class="service-old">R$ 30</del><strong class="service-price">R$ 21</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Banner digital por R$ 62 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Banner%20digital%20por%20R%24%2062.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Banner digital<small>Para site ou campanha online</small></span>
+<span class="service-prices"><del class="service-old">R$ 89</del><strong class="service-price">R$ 62</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Foto de perfil + destaque por R$ 48 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Foto%20de%20perfil%20%2B%20destaque%20por%20R%24%2048.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Foto de perfil + destaque<small>Um conjunto de aplicação da campanha</small></span>
+<span class="service-prices"><del class="service-old">R$ 69</del><strong class="service-price">R$ 48</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Cartaz promocional por R$ 62 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Cartaz%20promocional%20por%20R%24%2062.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Cartaz promocional<small>Arte pronta para gráfica</small></span>
+<span class="service-prices"><del class="service-old">R$ 89</del><strong class="service-price">R$ 62</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Etiqueta de preço por R$ 34 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Etiqueta%20de%20pre%C3%A7o%20por%20R%24%2034.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Etiqueta de preço<small>Um modelo para loja física</small></span>
+<span class="service-prices"><del class="service-old">R$ 49</del><strong class="service-price">R$ 34</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Flyer ou cardápio de ofertas por R$ 83 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Flyer%20ou%20card%C3%A1pio%20de%20ofertas%20por%20R%24%2083.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Flyer ou cardápio de ofertas<small>Uma arte pronta para gráfica</small></span>
+<span class="service-prices"><del class="service-old">R$ 119</del><strong class="service-price">R$ 83</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+<a aria-label="Pedir Adesivo de vitrine por R$ 104 no WhatsApp" class="service" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vi%20no%20Vende%20Bonito%20e%20quero%20a%20pe%C3%A7a%20avulsa%20Adesivo%20de%20vitrine%20por%20R%24%20104.%20Podemos%20conversar%3F" rel="noopener" target="_blank">
+<span class="service-name">Adesivo de vitrine<small>Uma arte sob medida, sem impressão</small></span>
+<span class="service-prices"><del class="service-old">R$ 149</del><strong class="service-price">R$ 104</strong></span>
+<span aria-hidden="true" class="service-arrow">↗</span>
+</a>
+</div>
+<p class="fine">Preços por peça, considerando 1 layout por item. Textos, referências, fotos e informações da oferta devem ser enviados pelo cliente. Variações, formatos extras e projetos mais complexos são orçados à parte.</p>
+<a class="btn btn-wa" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Gostaria%20de%20montar%20um%20pedido%20de%20pe%C3%A7as%20avulsas%20para%20a%20minha%20Black%20Friday." rel="noopener" target="_blank"><svg aria-hidden="true"><use href="#wa"></use></svg>Montar meu pedido de avulsos</a>
+</div>
+</section>
+<!-- 04 / Como comprar -->
+<section class="section-how" id="como">
+<div class="wrap stack">
+
+<h2>Você manda as ofertas.<br/><strong>A JUNO dá forma.</strong></h2>
+<div class="steps compact">
+<div class="step"><div class="n">01</div><h3>Escolha</h3><p>Selecione um pacote ou as artes avulsas que você precisa.</p></div>
+<div class="step"><div class="n">02</div><h3>Conte sua ideia</h3><p>Envie no WhatsApp os produtos, as ofertas e suas referências.</p></div>
+<div class="step"><div class="n">03</div><h3>Receba as artes</h3><p>Após aprovação e pagamento, entregamos os arquivos finais no prazo combinado.</p></div>
+</div>
+<p class="fine">50% para iniciar e 50% na entrega. Prazo definido no atendimento, conforme o volume de peças e a agenda.</p>
+</div>
+</section>
+<!-- 05 / Fechamento -->
+<section class="final">
+<div class="wrap stack">
+
+<h2>Boas ofertas merecem<br/><strong>uma grande apresentação.</strong></h2>
+<p class="lead">Sua Black Friday pode começar com uma mensagem. Fale com a JUNO e tire sua campanha do improviso.</p>
+<a class="btn btn-wa" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Quero%20preparar%20a%20comunica%C3%A7%C3%A3o%20visual%20da%20minha%20Black%20Friday.%20Podemos%20come%C3%A7ar%3F" rel="noopener" target="_blank"><svg aria-hidden="true"><use href="#wa"></use></svg>Quero preparar minha campanha</a>
+<p class="muted contact-note">Atendimento pelo WhatsApp: <b>(89) 9 8145-3993</b></p>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap row">
+<a aria-label="JUNO Estúdio Criativo — voltar ao início" class="footer-brand" href="#inicio"><img alt="JUNO Estúdio Criativo" src="/vendebonito/assets/juno.svg"/></a>
+<span><a href="https://instagram.com/junojpeg" rel="noopener" target="_blank">@junojpeg</a> · <a href="mailto:contato@usejuno.com.br">contato@usejuno.com.br</a> · São Raimundo Nonato, PI</span>
+</div>
+</footer>
+<a aria-label="Falar no WhatsApp" class="fab" href="https://wa.me/5589981453993?text=Oi%2C%20JUNO%21%20Vim%20pela%20p%C3%A1gina%20Vende%20Bonito%20e%20quero%20um%20or%C3%A7amento." rel="noopener" target="_blank"><svg aria-hidden="true"><use href="#wa"></use></svg></a>
+
+</body>
+</html>
