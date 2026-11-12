@@ -1,403 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUNO — Estúdio Criativo</title>
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
-  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=7">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JUNO Estúdio Criativo</title>
+<meta name="description" content="Estúdio de design que une gestão e criatividade pra transformar negócios em marcas fortes, consistentes e com propósito.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+.t-dark{--bg:#0F0F0D;--fg:#ECE7DE;--mute:#9C958A;--body:#CFC9BE;--line:rgba(236,231,222,.18);--inv:1}
+.t-light{--bg:#ECE7DE;--fg:#0F0F0D;--mute:#5E5850;--body:#3F3B35;--line:rgba(15,15,13,.18);--inv:0}
+.sec{background:var(--bg);color:var(--fg)}
+.page{background:#0F0F0D;transition:background-color .8s ease}
+.page.live .sec{background:transparent}
+.page.live.is-dark{background:#0F0F0D}
+.page.live.is-light{background:#ECE7DE}
+.page.live.is-dark .sec{--bg:#0F0F0D;--fg:#ECE7DE;--mute:#9C958A;--body:#CFC9BE;--line:rgba(236,231,222,.18);--inv:1}
+.page.live.is-light .sec{--bg:#ECE7DE;--fg:#0F0F0D;--mute:#5E5850;--body:#3F3B35;--line:rgba(15,15,13,.18);--inv:0}
+.sec,.sec *{transition:color .8s ease,background-color .8s ease,border-color .8s ease,filter .8s ease}
+.logo{filter:invert(var(--inv))}
+.client{filter:brightness(0) invert(var(--inv));opacity:.85}
+@keyframes blink{50%{opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.caret{display:inline-block;width:.07em;height:.78em;background:currentColor;margin-left:.04em;vertical-align:-0.04em;animation:blink 1s steps(1) infinite}
+.card{text-decoration:none;color:var(--fg);display:flex;flex-direction:column;gap:10px}
+.card:hover{opacity:1}
+.card .cover{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.card:hover .cover{transform:scale(1.015)}
+.card .arrow{transition:transform .3s ease}
+.card:hover .arrow{transform:rotate(45deg)}
+.svc{display:flex;flex-wrap:wrap;gap:12px 40px;align-items:baseline;padding:32px 0;border-top:1px solid var(--line);color:var(--fg);text-decoration:none;transition:padding .3s ease}
+.svc:hover{opacity:1;padding-left:16px}
+.marquee{display:flex;align-items:center;width:max-content;animation:marquee 40s linear infinite}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 260px}
+.field label{font-size:14px;font-weight:300;letter-spacing:1px;color:var(--mute)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;font-weight:300;color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--fg);padding:12px 0;min-height:48px;border-radius:0}
+.field select option{color:#0F0F0D}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-width:2px}
+.social{display:inline-flex;align-items:center;justify-content:center;width:52px;height:44px;border:1px solid var(--fg);border-radius:999px;color:var(--fg)}
+.social:hover{opacity:1;background:var(--fg);color:var(--bg)}
+.sitemap a{font-size:16px;font-weight:400;text-decoration:underline;text-underline-offset:3px}
+.combo-btn{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:999px;background:#DBED17;color:#070905;text-decoration:none;font-weight:500;font-size:16px}
+.combo-btn:hover{opacity:.88;color:#070905}
+.float-outer{transition:transform .35s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.float-inner{animation:bob 6s ease-in-out infinite}
+.btn-solid{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:400;font-size:16px}
+.btn-line{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:999px;border:1px solid var(--fg);color:var(--fg);text-decoration:none;font-weight:400;font-size:16px}
+.label{margin:0;font-size:14px;font-weight:300;letter-spacing:1px;color:var(--mute)}
+.arrow-dot{position:absolute;right:14px;top:14px;width:48px;height:48px;border-radius:50%;background:#ECE7DE;color:#0F0F0D;display:flex;align-items:center;justify-content:center;font-size:22px}
+.cover-box{position:relative;border-radius:16px;overflow:hidden}
+.cover-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.dot{width:44px;height:44px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot span{display:block;width:32px;height:2px;border-radius:2px;background:var(--line)}
+.dot[aria-pressed="true"] span{background:var(--fg)}
+@media (prefers-reduced-motion:reduce){.marquee,.float-inner,.caret{animation:none}}
+</style>
 </head>
 <body>
+<div class="page is-dark" id="page">
 
-  <!-- NAVBAR -->
-  <nav>
-    <div class="nav-in">
-      <!-- Mobile Burger Button -->
-      <button class="menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<a href="https://usejuno.com.br/vendebonito" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 20px; background: #ECE7DE; color: #0F0F0D; text-decoration: none; font-size: 14px; font-weight: 400; text-align: center">
+<strong style="font-weight: 700">Vende Bonito</strong>
+<span data-t="bar"></span>
+<span aria-hidden="true">→</span>
+</a>
 
-      <!-- Logo -->
-      <a href="#" class="nav-logo-link">
-        <img class="nav-logo" src="images/logo.png" alt="JUNO Estúdio Criativo">
-      </a>
+<header style="position: sticky; top: 16px; z-index: 50; height: 0">
+<div style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px 20px 0">
+<nav aria-label="Principal" class="nav glass-light" id="nav">
+<a href="#topo" aria-label="JUNO" class="juno-logo" style="display: block; height: 22px; color: inherit"></a>
+<div class="navlinks">
+<a class="navlink" href="projetos.html" data-t="navWork"></a>
+<a class="navlink" href="#sobre" data-t="navAbout"></a>
+<a class="navlink" href="#servicos" data-t="navServices"></a>
+<a class="navlink" href="blog.html">Blog</a>
+</div>
+<a class="cta" href="https://wa.me/5589981453993" data-wa="general" data-t="navCta"></a>
+</nav>
+<button type="button" class="langbtn glass-light" id="langbtn" data-t="langBtn" data-t-aria="langAria"></button>
+</div>
+</header>
 
-      <!-- Navigation Links -->
-      <div class="nav-links">
-        <a href="#sobre">Sobre</a>
-        <a href="#portfolio">Projetos</a>
-        <a href="#servicos">Serviços</a>
-        <a href="/em-breve">Shop</a>
-      </div>
+<!-- HERO -->
+<section id="topo" class="sec t-dark" data-theme="dark" style="padding: 0 0 clamp(72px, 9vw, 120px)">
+<div style="position: relative; width: 100%; aspect-ratio: 8 / 3; min-height: 240px; overflow: hidden; background: #0F0F0F">
+<video id="hero-video" src="assets/video/juno-motion.mp4" autoplay muted loop playsinline aria-label="JUNO" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></video>
+</div>
+<div class="wrap" style="padding-top: clamp(56px, 7vw, 96px)">
+<h1 style="margin: 0; font-weight: 900; font-size: clamp(48px, 6.7vw, 96px); line-height: 1; letter-spacing: -0.02em; max-width: 12ch"><span data-t="heroLead"></span> <span style="display: block; min-height: 1em"><span id="typed"></span><span class="caret"></span></span></h1>
+<p style="margin: 40px 0 0; max-width: 540px; font-size: 19px; font-weight: 300; line-height: 1.5; color: var(--body)" data-t="heroSub"></p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px">
+<a href="#projetos" class="btn-solid"><span data-t="heroBtn1"></span> <span aria-hidden="true">↓</span></a>
+<a href="https://wa.me/5589981453993" data-wa="quote" class="btn-line" data-t="heroBtn2"></a>
+</div>
+</div>
+</section>
 
-      <!-- CTA Button -->
-      <div class="nav-cta">
-        <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="nav-btn-orcamento">ORÇAMENTO</a>
-      </div>
-    </div>
-  </nav>
+<!-- SOBRE -->
+<section id="sobre" class="sec t-dark" data-theme="dark" style="padding: clamp(72px, 9vw, 140px) 0">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px clamp(40px, 6vw, 112px)">
+<div style="flex: 1 1 520px; min-width: 0">
+<p class="label" style="margin-bottom: 24px" data-t="fewWords"></p>
+<h2 style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 80px); line-height: 1.02; letter-spacing: -0.02em; max-width: 16ch" data-t="aboutTitle"></h2>
+<div style="display: flex; flex-direction: column; gap: 20px; margin-top: 48px; max-width: 620px">
+<p style="margin: 0; font-size: 19px; font-weight: 500; line-height: 1.55; color: var(--body)" data-t="about1"></p>
+<p style="margin: 0; font-size: 19px; font-weight: 500; line-height: 1.55; color: var(--body)" data-t="about2"></p>
+</div>
+</div>
+<div style="flex: 0 0 auto; margin-inline: auto; padding: 32px">
+<div class="float-outer" id="float">
+<div class="float-inner" style="width: clamp(220px, 24vw, 320px); aspect-ratio: 5 / 8; border-radius: 999px; overflow: hidden; background: #F4F4F2">
+<img src="assets/img/junior.webp" data-t-alt="photoAlt" alt="Júnior Ferreira" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%">
+</div>
+</div>
+</div>
+</div>
+</section>
 
-  <!-- MOBILE OVERLAY MENU -->
-  <div class="menu-overlay">
-    <div class="menu-overlay-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#portfolio">Projetos</a>
-      <a href="#servicos">Serviços</a>
-      <a href="/em-breve">Shop</a>
-      <a href="#contato">Contato</a>
-    </div>
-    <div class="menu-overlay-cta">
-      <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="nav-btn-orcamento">ORÇAMENTO</a>
-    </div>
-  </div>
+<!-- PROJETOS -->
+<section id="projetos" class="sec t-light" data-theme="light" style="padding: clamp(80px, 9vw, 140px) 0">
+<div class="wrap">
+<h2 style="margin: 0 0 64px; font-weight: 500; font-size: clamp(44px, 5.6vw, 80px); line-height: 1; letter-spacing: -0.02em" data-t="projTitle"></h2>
+<div style="display: flex; flex-direction: column; gap: clamp(56px, 7vw, 96px)">
+<div id="projRow1" style="display: flex; flex-wrap: wrap; gap: clamp(40px, 6vw, 96px) clamp(24px, 6vw, 96px)"></div>
+<a class="card" href="projetos.html#conecta">
+<div class="cover-box" style="aspect-ratio: 21 / 9; min-height: 280px; background: #0B1F5C">
+<img class="cover" src="assets/img/capas/conecta-prev.webp" data-t-alt="wideAlt" alt="">
+<span class="arrow arrow-dot" aria-hidden="true">↗</span>
+</div>
+<span style="font-size: 14px; font-weight: 300; letter-spacing: 1px; color: var(--mute)" data-t="wideTags"></span>
+<span style="font-size: 28px; font-weight: 300; line-height: 1.15">Conecta Prev</span>
+</a>
+<div id="projRow3" style="display: flex; flex-wrap: wrap; gap: clamp(40px, 6vw, 96px) clamp(24px, 6vw, 96px)"></div>
+</div>
+<div style="display: flex; justify-content: flex-end; margin-top: 64px">
+<a href="projetos.html" style="font-size: 16px; font-weight: 400; text-decoration: underline; text-underline-offset: 4px" data-t="projAll"></a>
+</div>
+</div>
+</section>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="wrap hero-wrap">
-      <p class="hero-sub">Vamos criar juntos?</p>
-      
-      <div class="hero-title-container">
-        <h1 class="hero-title-line line-top">JUNO</h1>
-        
-        <div class="hero-profile-capsule">
-          <img src="images/profile.png" alt="Juno profile portrait" decoding="async">
-        </div>
-        
-        <h1 class="hero-title-line line-bottom">STUDIO</h1>
-      </div>
-      
-      <div class="hero-illustration">
-        <img src="images/hero_illustration.png" alt="Ilustração Livro e Café">
-      </div>
-      
-      <p class="hero-desc">
-        Administrador por formação, designer por paixão. Ajudo negócios a se posicionarem com identidade, consistência e propósito.
-      </p>
-      
-      <div class="hero-scroll">
-        <div class="scroll-bar">
-          <div class="scroll-bar-in"></div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- HISTÓRIAS -->
+<section class="sec t-light" data-theme="light" style="padding: 0 0 clamp(80px, 9vw, 140px)">
+<div class="wrap">
+<h2 style="margin: 0 0 64px; font-size: 19px; font-weight: 700" data-t="storiesTitle"></h2>
+<div id="stories" style="display: flex; flex-wrap: wrap; gap: 64px clamp(32px, 5vw, 80px)"></div>
+</div>
+</section>
 
-  <!-- STATS SECTION -->
-  <section class="hero-stats">
-    <div class="wrap">
-      <div class="nums">
-        <div class="num reveal">
-          <div class="n" data-to="1000">+0</div>
-          <div class="l">Projetos criados e entregues</div>
-        </div>
-        <div class="num reveal">
-          <div class="n" data-to="100">+0</div>
-          <div class="l">Marcas transformadas</div>
-        </div>
-        <div class="num reveal">
-          <div class="n" data-to="10">+0</div>
-          <div class="l">Anos de estrada</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- CLIENTES -->
+<section class="sec t-light" data-theme="light" data-t-aria="clientsAria" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 0; overflow: hidden">
+<div class="marquee" id="clients" style="gap: 88px"></div>
+</section>
 
-  <!-- MARQUEE BANNER -->
-  <div class="mq">
-    <div>
-      <span>KEY VISUAL (KV) DO EVENTO <span class="st">✦</span> DESIGN PARA REDES <span class="st">✦</span> SITE <span class="st">✦</span> IDENTIDADE VISUAL <span class="st">✦</span></span>
-      <span>KEY VISUAL (KV) DO EVENTO <span class="st">✦</span> DESIGN PARA REDES <span class="st">✦</span> SITE <span class="st">✦</span> IDENTIDADE VISUAL <span class="st">✦</span></span>
-      <span>KEY VISUAL (KV) DO EVENTO <span class="st">✦</span> DESIGN PARA REDES <span class="st">✦</span> SITE <span class="st">✦</span> IDENTIDADE VISUAL <span class="st">✦</span></span>
-    </div>
-  </div>
+<!-- NÚMEROS -->
+<section class="sec t-dark" data-theme="dark" style="padding: clamp(96px, 10vw, 160px) 0">
+<div class="wrap">
+<p class="label" style="margin-bottom: 40px" data-t="fewWords"></p>
+<div style="min-height: clamp(190px, 17vw, 240px)">
+<p style="margin: 0; font-weight: 900; font-size: clamp(40px, 4.6vw, 64px); line-height: 1.06; letter-spacing: -0.01em; max-width: 16ch"><span id="statBig"></span><br><span id="statLabel"></span></p>
+</div>
+<div role="group" id="dots" data-t-aria="statsAria" style="display: flex; gap: 4px; margin-top: 32px"></div>
+</div>
+</section>
 
-  <!-- ABOUT SECTION -->
-  <section class="about-detail" id="sobre">
-    <div class="wrap">
-      <div class="section-header reveal">
-        <h2>SOBRE</h2>
-        <div class="header-line"></div>
-        <span class="plus-icon">✦</span>
-      </div>
-      
-      <div class="about-grid">
-        <div class="about-left reveal">
-          <p><strong>Sou designer, estrategista criativo e fundador da JUNO.</strong> Ao longo da minha trajetória, participei da criação de mais de 1.000 projetos, desenvolvendo identidades visuais, peças para redes sociais, landing pages e materiais gráficos para marcas, eventos, empresas e profissionais.</p>
-          <p>A JUNO nasce para transformar ideias em marcas mais fortes, profissionais e memoráveis.</p>
-        </div>
-        
-        <div class="about-right reveal">
-          <div class="about-cards">
-            <div class="about-card">
-              <h3>Branding</h3>
-              <p>Estratégia, posicionamento e identidade visual</p>
-            </div>
-            <div class="about-card">
-              <h3>Marcas</h3>
-              <p>Criação de logotipos e sistemas visuais</p>
-            </div>
-            <div class="about-card">
-              <h3>Social</h3>
-              <p>Conteúdo visual para redes sociais</p>
-            </div>
-            <div class="about-card">
-              <h3>Web</h3>
-              <p>Landing pages e páginas de conversão</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- SERVIÇOS -->
+<section id="servicos" class="sec t-light" data-theme="light" style="padding: clamp(80px, 9vw, 140px) 0">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 56px">
+<h2 style="margin: 0; font-weight: 300; font-size: clamp(44px, 5.6vw, 80px); line-height: 1; letter-spacing: -0.02em" data-t="svcTitle"></h2>
+<p style="margin: 0; max-width: 380px; font-size: 16px; font-weight: 500; line-height: 1.55" data-t="svcPay"></p>
+</div>
+<div id="services"></div>
+<div style="border-top: 1px solid var(--line)"></div>
+<div style="margin-top: 48px; padding: clamp(28px, 4vw, 48px); border-radius: 20px; background: #070905; color: #ECE7DE">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px">
+<div style="max-width: 560px">
+<p style="margin: 0 0 10px; font-size: 14px; font-weight: 400; letter-spacing: 1px; color: #DBED17" data-t="comboTag"></p>
+<h3 style="margin: 0; font-size: clamp(26px, 2.6vw, 36px); font-weight: 700; line-height: 1.1" data-t="comboTitle"></h3>
+<p style="margin: 12px 0 0; font-size: 16px; font-weight: 400; line-height: 1.55; color: #CFC9BE" data-t="comboIntro"></p>
+</div>
+<a class="combo-btn" href="https://wa.me/5589981453993" data-wa="combo" data-t="comboBtn"></a>
+</div>
+<div id="combo" style="display: flex; flex-wrap: wrap; gap: 32px clamp(32px, 5vw, 72px); margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(236,231,222,.14)"></div>
+</div>
+</div>
+</section>
 
-  <!-- CLIENTS LOGO MARQUEE -->
-  <section class="logo-marquee-section">
-    <div class="wrap">
-      <div class="logo-marquee">
-        <div class="logo-marquee-track">
-          <img src="images/partner_1.png" alt="Bnet Logo">
-          <img src="images/partner_2.png" alt="Coronel Logo">
-          <img src="images/partner_3.png" alt="Essencia Logo">
-          <img src="images/partner_4.png" alt="Luke Logo">
-          <img src="images/partner_5.png" alt="Luma Logo">
-          <img src="images/partner_6.png" alt="Maiso Logo">
-          <img src="images/partner_7.png" alt="RBV Logo">
-          <img src="images/partner_8.png" alt="Stefanny Logo">
-          <img src="images/partner_9.png" alt="Victor Logo">
-          <img src="images/partner_10.png" alt="Vitalis Logo">
-          <img src="images/partner_11.png" alt="Oxente Ze Logo">
-        </div>
-        <div class="logo-marquee-track" aria-hidden="true">
-          <img src="images/partner_1.png" alt="Bnet Logo">
-          <img src="images/partner_2.png" alt="Coronel Logo">
-          <img src="images/partner_3.png" alt="Essencia Logo">
-          <img src="images/partner_4.png" alt="Luke Logo">
-          <img src="images/partner_5.png" alt="Luma Logo">
-          <img src="images/partner_6.png" alt="Maiso Logo">
-          <img src="images/partner_7.png" alt="RBV Logo">
-          <img src="images/partner_8.png" alt="Stefanny Logo">
-          <img src="images/partner_9.png" alt="Victor Logo">
-          <img src="images/partner_10.png" alt="Vitalis Logo">
-          <img src="images/partner_11.png" alt="Oxente Ze Logo">
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- CONTATO -->
+<section id="contato" class="sec t-light" data-theme="light" style="padding: clamp(80px, 9vw, 140px) 0">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 64px clamp(40px, 7vw, 120px)">
+<div style="flex: 1 1 340px; min-width: 0">
+<h2 style="margin: 0; font-weight: 500; font-size: clamp(56px, 5.6vw, 80px); line-height: 1" data-t="contactTitle"></h2>
+<p style="margin: 32px 0 0; font-size: 16px; font-weight: 400; line-height: 1.5; max-width: 340px" data-t="contactText"></p>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px; font-size: 16px">
+<a href="https://wa.me/5589981453993" data-wa="general" style="text-decoration: underline; text-underline-offset: 4px">(89) 9.8145-3993</a>
+<a href="mailto:contato@usejuno.com.br" data-mail="" style="text-decoration: underline; text-underline-offset: 4px">contato@usejuno.com.br</a>
+</div>
+</div>
+<form id="form" style="flex: 1 1 520px; min-width: 0; display: flex; flex-wrap: wrap; gap: 32px; align-content: flex-start">
+<div class="field"><label for="f-nome" data-t="fName"></label><input id="f-nome" name="nome" type="text" autocomplete="name" required></div>
+<div class="field"><label for="f-whats">WhatsApp *</label><input id="f-whats" name="whatsapp" type="tel" autocomplete="tel" placeholder="(00) 0.0000-0000" required></div>
+<div class="field"><label for="f-assunto" data-t="fNeed"></label><select id="f-assunto" name="assunto"></select></div>
+<div class="field"><label for="f-momento" data-t="fStage"></label><select id="f-momento" name="momento"></select></div>
+<div class="field"><label for="f-origem" data-t="fFound"></label><select id="f-origem" name="origem"></select></div>
+<div class="field" style="flex-basis: 100%"><label for="f-msg" data-t="fMsg"></label><textarea id="f-msg" name="mensagem"></textarea></div>
+<div style="flex-basis: 100%; display: flex; justify-content: flex-end">
+<button type="submit" style="min-height: 48px; padding: 0 32px; border: 1px solid var(--fg); border-radius: 999px; background: transparent; color: var(--fg); font: inherit; font-size: 16px; font-weight: 400; cursor: pointer" data-t="fSend"></button>
+</div>
+</form>
+</div>
+</section>
 
-  <!-- SERVICES SECTION -->
-  <section class="services" id="servicos">
-    <div class="wrap">
-      <div class="section-header reveal">
-        <h2>SERVIÇOS PRA SUA MARCA BRILHAR</h2>
-        <div class="header-line"></div>
-        <span class="plus-icon">✦</span>
-      </div>
+<!-- RODAPÉ -->
+<footer class="sec t-light" data-theme="light" style="padding: clamp(64px, 7vw, 96px) 0 32px">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; gap: 48px clamp(32px, 6vw, 120px)">
+<nav class="sitemap" data-t-aria="siteMap" style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0 0 12px; font-size: 22px; font-weight: 700" data-t="siteMap"></h3>
+<a href="projetos.html" data-t="navWork"></a>
+<a href="#sobre" data-t="navAbout"></a>
+<a href="#servicos" data-t="navServices"></a>
+<a href="#contato" data-t="navContact"></a>
+<a href="blog.html">Blog</a>
+<a href="https://usejuno.com.br/vendebonito">Vende Bonito</a>
+</nav>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<a class="social" href="https://www.instagram.com/junojpeg" aria-label="Instagram" target="_blank" rel="noopener">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+</a>
+<a class="social" href="https://www.behance.net/jniorferrera" aria-label="Behance" target="_blank" rel="noopener">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 11.4c.9-.4 1.4-1.1 1.4-2.2C9.6 7 8 6 5.9 6H1v12h5.1c2.2 0 4.1-1.1 4.1-3.4 0-1.5-.7-2.7-2-3.2zM3.3 8h2.2c.9 0 1.7.3 1.7 1.3s-.6 1.3-1.5 1.3H3.3zm2.5 8H3.3v-3.4h2.5c1.1 0 1.9.5 1.9 1.7S6.9 16 5.8 16zm12.7-6.8c-2.8 0-4.6 1.9-4.6 4.5 0 2.7 1.7 4.5 4.6 4.5 2.2 0 3.6-1 4.3-3.1h-2.3c-.2.7-1.1 1.1-1.9 1.1-1.4 0-2.1-.8-2.1-2.1h6.4c.2-2.7-1.3-4.9-4.4-4.9zm-2 3.6c.1-1.1.8-1.8 1.9-1.8 1.2 0 1.8.7 1.9 1.8zm-.7-6h5.1v1.3h-5.1z"></path></svg>
+</a>
+<a class="social" href="https://www.linkedin.com/company/studio-junoco/" aria-label="LinkedIn" target="_blank" rel="noopener">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zm6 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8V21H9z"></path></svg>
+</a>
+<a class="social" href="https://wa.me/5589981453993" data-wa="general" aria-label="WhatsApp">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 8 19.4z"></path><path d="M9 8.5c0 3.3 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2z" fill="currentColor" stroke="none"></path></svg>
+</a>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px">
+<span style="flex: 1 1 200px; font-weight: 400" data-t="place"></span>
+<span style="flex: 1 1 200px; font-weight: 300; color: var(--body)" data-t="online"></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px">
+<a href="mailto:contato@usejuno.com.br" data-mail="" style="flex: 1 1 200px; text-decoration: underline; text-underline-offset: 3px">contato@usejuno.com.br</a>
+<a href="https://wa.me/5589981453993" data-wa="general" style="flex: 1 1 200px; text-decoration: underline; text-underline-offset: 3px">(89) 9.8145-3993</a>
+</div>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: clamp(56px, 7vw, 96px); padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; font-weight: 400; color: var(--mute)">
+<span role="img" aria-label="JUNO" class="juno-logo" style="display: block; height: 20px; color: var(--fg)"></span>
+<span>© <span class="year"></span> JUNO Estúdio Criativo</span>
+<span data-t="tagline"></span>
+</div>
+</div>
+</footer>
 
-      <div class="sgrid">
-        <!-- Card 1: Identidade Visual -->
-        <div class="svc reveal card-gray">
-          <div class="ic">
-            <svg viewBox="0 0 16 16" fill="currentColor" width="28" height="28">
-              <path fill-rule="evenodd" d="M10.646.646a.5.5 0 0 1 .708 0l4 4a.5.5 0 0 1 0 .708l-1.902 1.902-.829 3.313a1.5 1.5 0 0 1-1.024 1.073L1.254 14.746a.5.5 0 0 1-.5-.5l3.073-10.365a1.5 1.5 0 0 1 1.073-1.024l3.313-.829L10.646.646zm-1.8 2.908l-3.173.793a.5.5 0 0 0-.358.342l-2.57 8.665 8.665-2.57a.5.5 0 0 0 .342-.358l.793-3.173-3.702-3.702z"/>
-              <path fill-rule="evenodd" d="M14 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-12 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm11 2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-            </svg>
-          </div>
-          <h3>IDENTIDADE VISUAL</h3>
-          <p>Não é só um logo. É um sistema visual completo logo, cores, tipografia e aplicações que dá personalidade e diferencia você no mercado.</p>
-          <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="more">Saiba mais &rarr;</a>
-        </div>
-        
-        <!-- Card 2: Design para Redes -->
-        <div class="svc reveal card-gray">
-          <div class="ic">
-            <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" width="28" height="28">
-              <path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 5h8v11H8V5zm4 12.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
-            </svg>
-          </div>
-          <h3>DESIGN PARA REDES</h3>
-          <p>Posts, stories e carrosséis pensados pra chamar atenção e comunicar sua mensagem de forma clara, criativa e profissional.</p>
-          <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="more">Saiba mais &rarr;</a>
-        </div>
-        
-        <!-- Card 3: KV de Eventos (Destaque Largo) -->
-        <div class="svc feat reveal card-dark">
-          <div class="feat-content">
-            <div class="ic">
-              <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" width="28" height="28">
-                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5H5V7h14v1zm-7 10l-2.2 1.2.4-2.5-1.8-1.8 2.5-.4L12 12l1.1 2.2 2.5.4-1.8 1.8.4 2.5L12 18z"/>
-              </svg>
-            </div>
-            <h3>KEY VISUAL (KV) DO EVENTO</h3>
-            <p>O Key Visual completo do seu evento: o conceito visual que se desdobra em divulgação, palco, credenciais e toda a arte, digital e pronta para impressão.</p>
-          </div>
-          <a href="/kv-de-eventos" class="btn btn-lime">Ver mais eventos &rarr;</a>
-        </div>
-        
-        <!-- Card 4: Materiais Impressos -->
-        <div class="svc reveal card-dark">
-          <div class="ic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
-              <path d="M6 9V2h12v7"/>
-              <line x1="8" y1="5" x2="16" y2="5"/>
-              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-              <circle cx="6" cy="14" r="1" fill="currentColor"/>
-              <circle cx="9" cy="14" r="1" fill="currentColor"/>
-              <path d="M6 14h12v8H6z"/>
-              <line x1="8" y1="17" x2="16" y2="17"/>
-              <line x1="8" y1="20" x2="16" y2="20"/>
-            </svg>
-          </div>
-          <h3>MATERIAIS IMPRESSOS</h3>
-          <p>Flyers, banners, crachás e convites com arte pronta pra gráfica (CMYK, sangria e alta resolução). Você só leva pra imprimir.</p>
-          <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="more">Saiba mais &rarr;</a>
-        </div>
-        
-        <!-- Card 5: Serviços Extras -->
-        <div class="svc reveal card-dark">
-          <div class="ic">
-            <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" width="28" height="28">
-              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
-              <path d="M12 6.5l1.5 3.1 3.4.5-2.5 2.4.6 3.4-3-1.6-3 1.6.6-3.4-2.5-2.4 3.4-.5 1.5-3.1z"/>
-            </svg>
-          </div>
-          <h3>SERVIÇOS EXTRAS</h3>
-          <p>Nem tudo cabe numa caixinha. Soluções sob medida pra completar sua presença visual e deixar sua marca ainda mais marcante.</p>
-          <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" target="_blank" class="more">Saiba mais &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO SECTION -->
-  <section id="portfolio">
-    <div class="wrap">
-      <div class="section-header reveal">
-        <h2>ALGUNS PROJETOS QUE GANHARAM VIDA</h2>
-        <div class="header-line"></div>
-        <span class="plus-icon">✦</span>
-      </div>
-
-      <div class="pf">
-        <!-- 5 Projects in layout -->
-        <div class="proj s4 tall reveal">
-          <div class="img i1"></div>
-        </div>
-        <div class="proj s2 reveal">
-          <div class="img i2"></div>
-        </div>
-        <div class="proj s2 reveal">
-          <div class="img i3"></div>
-        </div>
-        <div class="proj s3 reveal">
-          <div class="img i4"></div>
-        </div>
-        <div class="proj s3 reveal">
-          <div class="img i5"></div>
-        </div>
-      </div>
-      
-      <div class="portfolio-more-link reveal">
-        <a href="https://www.behance.net/jniorferrera/appreciated" target="_blank">VER MAIS PROJETOS </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section id="faq">
-    <div class="wrap">
-      <div class="section-header reveal">
-        <h2>DÚVIDAS FREQUENTES</h2>
-        <div class="header-line"></div>
-        <span class="plus-icon">✦</span>
-      </div>
-      
-      <div class="faq-wrap">
-        <div class="qa">
-          <button class="qbtn"><strong>COMO COMEÇA UM PROJETO?</strong> <span class="pm"><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span></button>
-          <div class="ans">
-            <p>Você chama a gente no WhatsApp, conversamos sobre o que precisa, enviamos uma proposta com escopo e prazo, e ao aprovar, mãos à obra.</p>
-          </div>
-        </div>
-        <div class="qa">
-          <button class="qbtn"><strong>QUAL O PRAZO?</strong> <span class="pm"><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span></button>
-          <div class="ans">
-            <p>Identidade visual leva de 10 a 20 dias; KV de evento, de 7 a 15. Tudo combinado antes de começar.</p>
-          </div>
-        </div>
-        <div class="qa">
-          <button class="qbtn"><strong>COMO FUNCIONA O PAGAMENTO?</strong> <span class="pm"><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span></button>
-          <div class="ans">
-            <p>50% pra iniciar e 50% na entrega. Pix, cartão e parcelamento conforme o projeto.</p>
-          </div>
-        </div>
-        <div class="qa">
-          <button class="qbtn"><strong>VOCÊS IMPRIMEM?</strong> <span class="pm"><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span></button>
-          <div class="ans">
-            <p>Entregamos a arte pronta pra impressão (CMYK, sangria, alta resolução); a impressão fica por sua conta. Indicamos gráficas de confiança.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION -->
-  <section class="contact" id="contato">
-    <div class="wrap">
-      <div class="cgrid">
-        <div class="contact-info reveal">
-          <h2>BORA CRIAR ALGO <span class="outline-text">INESQUECÍVEL?</span></h2>
-          <div class="cways">
-            <a href="https://api.whatsapp.com/send/?phone=558981453993&text=Ol%C3%A1%2C+vim+pelo+link+da+bio+da+Juno+Studio+e+gostaria+de+solicitar+um+or%C3%A7amento+para+meu+projeto.&type=phone_number&app_absent=0" class="way" target="_blank">
-              <span class="i">
-                <img src="images/whatsapp_5968850.png" alt="WhatsApp">
-              </span>
-              WhatsApp - (89) 9.81 45-3993
-            </a>
-            <a href="mailto:contato@usejuno.com.br" class="way">
-              <span class="i">
-                <img src="images/mail_484579.png" alt="E-mail">
-              </span>
-              contato@usejuno.com.br
-            </a>
-            <div class="way">
-              <span class="i">
-                <img src="images/headphone_5084648.png" alt="Atendimento">
-              </span>
-              Atendimento online • Brasil
-            </div>
-          </div>
-        </div>
-        
-        <div class="cform reveal">
-          <input type="text" placeholder="Seu nome">
-          <input type="email" placeholder="Seu e-mail">
-          <textarea placeholder="Conte sua ideia..."></textarea>
-          <button class="btn btn-lime-submit" onclick="alert('Conecte este formulário ao seu e-mail ou WhatsApp.')">ENVIAR</button>
-        </div>
-      </div>
-    </div>
-  <!-- FOOTER MARQUEE -->
-  <footer class="foot-marquee-section">
-    <div class="mq foot-mq">
-      <div>
-        <a href="https://www.behance.net/jniorferrera/appreciated" target="_blank">BEH</a><span class="st">✦</span>
-        <a href="https://www.instagram.com/junojpeg?igsh=MXJ0cDEyYmU4aWRxZw%3D%3D" target="_blank">INS</a><span class="st">✦</span>
-        <a href="https://www.linkedin.com/company/studio-junoco/" target="_blank">LNK</a><span class="st">✦</span>
-        <a href="https://www.behance.net/jniorferrera/appreciated" target="_blank">BEH</a><span class="st">✦</span>
-        <a href="https://www.instagram.com/junojpeg?igsh=MXJ0cDEyYmU4aWRxZw%3D%3D" target="_blank">INS</a><span class="st">✦</span>
-        <a href="https://www.linkedin.com/company/studio-junoco/" target="_blank">LNK</a><span class="st">✦</span>
-        <a href="https://www.behance.net/jniorferrera/appreciated" target="_blank">BEH</a><span class="st">✦</span>
-        <a href="https://www.instagram.com/junojpeg?igsh=MXJ0cDEyYmU4aWRxZw%3D%3D" target="_blank">INS</a><span class="st">✦</span>
-        <a href="https://www.linkedin.com/company/studio-junoco/" target="_blank">LNK</a><span class="st">✦</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js?v=5" defer></script>
+</div>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/home.js"></script>
 </body>
 </html>
