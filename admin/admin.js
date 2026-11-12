@@ -1,12 +1,11 @@
-/* JUNO, painel do blog: login, lista, editor, pré-visualização e publicação */
+/* JUNO, painel do blog: login, lista, editor, rascunho, pré-visualização e publicação */
 (function () {
   var esc = JUNO.esc;
   var DRAFT_KEY = 'juno-admin-draft';
   var PREVIEW_KEY = 'juno-admin-preview';
 
   var posts = [];
-  var editing = null;   // { originalSlug, post }
-  var files = {};       // imagens novas ainda não publicadas: caminho -> { base64, dataUrl }
+  var editing = null;   // { originalSlug, status, post }
   var lang = 'pt';
   var slugTouched = false;
   var saveTimer = null;
@@ -22,7 +21,7 @@
       body: body ? JSON.stringify(body) : undefined
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (data) {
-        if (res.status === 401 && path !== '/api/login') { show('login'); throw new Error(data.error || 'Faça login de novo.'); }
+        if (res.status === 401 && path !== '/api/login.php') { show('login'); throw new Error(data.error || 'Faça login de novo.'); }
         if (!res.ok) throw new Error(data.error || 'Algo deu errado (' + res.status + ').');
         return data;
       });
@@ -53,7 +52,7 @@
 
   /* ---------- utilidades ---------- */
   function slugify(s) {
-    return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70).replace(/-+$/, '');
   }
   function today() {
@@ -66,7 +65,7 @@
   }
   function imgSrc(path) {
     if (!path) return '';
-    return files[path] ? files[path].dataUrl : '/' + path;
+    return '/' + path;
   }
   function blank() {
     return { slug: '', date: today(), category: '', cover: '', pt: { title: '', excerpt: '', body: '' }, en: { title: '', excerpt: '', body: '' } };
@@ -76,7 +75,7 @@
   function loadList() {
     show('list');
     $('list').innerHTML = '<p class="empty">Carregando…</p>';
-    return api('GET', '/api/posts').then(function (data) {
+    return api('GET', '/api/posts.php?all=1').then(function (data) {
       posts = data.posts || [];
       renderList();
     }).catch(function (e) {
@@ -85,15 +84,22 @@
   }
 
   function renderList() {
-    $('list-count').textContent = posts.length === 1 ? '1 post publicado' : posts.length + ' posts publicados';
+    var pub = posts.filter(function (p) { return p.status === 'published'; }).length;
+    var drafts = posts.length - pub;
+    $('list-count').textContent = (pub === 1 ? '1 publicado' : pub + ' publicados') + (drafts ? ' · ' + (drafts === 1 ? '1 rascunho' : drafts + ' rascunhos') : '');
     if (!posts.length) { $('list').innerHTML = '<p class="empty">Nenhum post ainda. Clique em “Novo post” pra escrever o primeiro.</p>'; return; }
     $('list').innerHTML = posts.map(function (p) {
       return '<div class="post">' +
         (p.cover ? '<img class="post-thumb" src="' + esc('/' + p.cover) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : '<span class="post-thumb" aria-hidden="true"></span>') +
-        '<div><h2>' + esc(p.pt.title) + '</h2><p>' + esc(fmtDate(p.date)) + (p.category ? ' · ' + esc(p.category) : '') + (p.en ? ' · PT + EN' : '') + '</p></div>' +
+        '<div><h2>' + esc(p.pt.title) + '</h2><p>' +
+        (p.status === 'published' ? '<span class="badge on">Publicado</span>' : '<span class="badge">Rascunho</span>') +
+        esc(fmtDate(p.date)) + (p.category ? ' · ' + esc(p.category) : '') + (p.en ? ' · PT + EN' : '') + '</p></div>' +
         '<div class="post-actions">' +
-        '<a class="btn ghost small" href="/post.html?p=' + encodeURIComponent(p.slug) + '" target="_blank" rel="noopener">Ver</a>' +
+        (p.status === 'published' ? '<a class="btn ghost small" href="/post.html?p=' + encodeURIComponent(p.slug) + '" target="_blank" rel="noopener">Ver</a>' : '') +
         '<button type="button" class="btn ghost small" data-edit="' + esc(p.slug) + '">Editar</button>' +
+        (p.status === 'published'
+          ? '<button type="button" class="btn ghost small" data-status="draft" data-slug="' + esc(p.slug) + '">Despublicar</button>'
+          : '<button type="button" class="btn small" data-status="published" data-slug="' + esc(p.slug) + '">Publicar</button>') +
         '<button type="button" class="btn danger small" data-del="' + esc(p.slug) + '">Apagar</button>' +
         '</div></div>';
     }).join('');
@@ -101,9 +107,16 @@
 
   function removePost(slug) {
     var p = posts.find(function (x) { return x.slug === slug; });
-    if (!p || !confirm('Apagar o post “' + p.pt.title + '”?\n\nEle sai do site em 1 a 2 minutos.')) return;
-    api('DELETE', '/api/posts', { slug: slug }).then(function () {
-      toast('Post apagado. Ele sai do site em 1 a 2 minutos.');
+    if (!p || !confirm('Apagar o post “' + p.pt.title + '” de vez?\n\nIsso não pode ser desfeito. Se quiser só tirar do ar, use “Despublicar”.')) return;
+    api('DELETE', '/api/posts.php', { slug: slug }).then(function () {
+      toast('Post apagado.');
+      loadList();
+    }).catch(function (e) { alert(e.message); });
+  }
+
+  function setStatus(slug, status) {
+    api('PATCH', '/api/posts.php', { slug: slug, status: status }).then(function () {
+      toast(status === 'published' ? 'Publicado! Já está no ar.' : 'Post despublicado: virou rascunho e saiu do site.');
       loadList();
     }).catch(function (e) { alert(e.message); });
   }
@@ -113,16 +126,17 @@
     var src = slug ? posts.find(function (p) { return p.slug === slug; }) : null;
     var post = JSON.parse(JSON.stringify(src || blank()));
     if (!post.en) post.en = { title: '', excerpt: '', body: '' };
-    files = {};
+    var status = src ? src.status : 'draft';
+    delete post.status;
+    delete post.updatedAt;
 
     var draft = readDraft();
     if (draft && draft.originalSlug === (slug || null) && JSON.stringify(draft.post) !== JSON.stringify(post) &&
-        confirm('Tem um rascunho não publicado deste post, salvo em ' + new Date(draft.savedAt).toLocaleString('pt-BR') + '.\n\nRecuperar o rascunho?')) {
+        confirm('Tem alterações deste post que não foram salvas (de ' + new Date(draft.savedAt).toLocaleString('pt-BR') + ').\n\nRecuperar essas alterações?')) {
       post = draft.post;
-      files = draft.files || {};
     }
 
-    editing = { originalSlug: slug || null, post: post };
+    editing = { originalSlug: slug || null, status: status, post: post };
     slugTouched = Boolean(slug) || (post.slug && post.slug !== slugify(post.pt.title));
     lang = 'pt';
     setError('edit-error', '');
@@ -135,7 +149,7 @@
     $('f-date').value = post.date;
     $('f-category').value = post.category || '';
     $('f-slug').value = post.slug;
-    $('publish').textContent = slug ? 'Salvar alterações' : 'Publicar';
+    renderStatus();
     fillLang();
     renderCover();
     renderSlugUrl();
@@ -172,6 +186,13 @@
     $('slug-url').textContent = s ? 'usejuno.com.br/post.html?p=' + s : '';
   }
 
+  function renderStatus() {
+    var pub = editing.status === 'published';
+    $('publish').textContent = pub ? 'Salvar alterações' : 'Publicar';
+    $('save-draft').textContent = pub ? 'Despublicar (voltar pra rascunho)' : 'Salvar rascunho';
+    $('status-line').innerHTML = pub ? '<span class="badge on">Publicado</span>no ar no blog' : '<span class="badge">Rascunho</span>' + (editing.originalSlug ? 'salvo, fora do ar' : 'ainda não salvo');
+  }
+
   function renderCover() {
     var c = editing.post.cover;
     $('cover-img').hidden = !c;
@@ -180,7 +201,7 @@
     if (c) $('cover-img').src = imgSrc(c);
   }
 
-  /* rascunho salvo no navegador, pra não perder texto se a aba fechar */
+  /* cópia local no navegador, pra não perder texto se a aba fechar antes de salvar */
   function readDraft() {
     try { return JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { return null; }
   }
@@ -189,9 +210,8 @@
     saveTimer = setTimeout(function () {
       var data = { originalSlug: editing.originalSlug, post: editing.post, savedAt: Date.now() };
       try {
-        try { localStorage.setItem(DRAFT_KEY, JSON.stringify(Object.assign({ files: files }, data))); }
-        catch (e) { localStorage.setItem(DRAFT_KEY, JSON.stringify(data)); }
-        $('draft-status').textContent = 'Rascunho salvo neste navegador';
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+        $('draft-status').textContent = 'Alterações não salvas (cópia guardada neste navegador)';
       } catch (e) {}
     }, 600);
   }
@@ -228,58 +248,58 @@
     return '';
   }
 
-  function usedFiles(p) {
-    var text = JSON.stringify(p);
-    return Object.keys(files).filter(function (path) { return text.indexOf(path) >= 0; })
-      .map(function (path) { return { path: path, base64: files[path].base64 }; });
-  }
-
-  function publish() {
+  /* status: 'published' publica (ou salva um post que já está no ar); 'draft' guarda fora do ar */
+  function save(status, btn) {
     var p = finalPost();
     var err = validate(p);
     setError('edit-error', err);
     if (err) return;
-    var btn = $('publish');
     var label = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Publicando…';
-    api('POST', '/api/posts', { post: p, originalSlug: editing.originalSlug, files: usedFiles(p) }).then(function (res) {
+    var wasPublished = editing.status === 'published';
+    $('publish').disabled = $('save-draft').disabled = true;
+    btn.textContent = 'Salvando…';
+    api('POST', '/api/posts.php', { post: p, originalSlug: editing.originalSlug, status: status }).then(function (res) {
       clearDraft();
-      files = {};
-      editing = null;
-      toast(res.isNew ? 'Publicado! O post aparece no site em 1 a 2 minutos.' : 'Alterações salvas! O site atualiza em 1 a 2 minutos.');
-      loadList();
+      $('draft-status').textContent = '';
+      if (status === 'published') {
+        editing = null;
+        toast(wasPublished ? 'Alterações salvas! Já estão no ar.' : 'Publicado! Já está no ar.');
+        loadList();
+        return;
+      }
+      /* rascunho: continua no editor, agora como post salvo */
+      editing.originalSlug = res.slug;
+      editing.status = 'draft';
+      slugTouched = true;
+      api('GET', '/api/posts.php?all=1').then(function (d) { posts = d.posts || []; }).catch(function () {});
+      toast(wasPublished ? 'Post despublicado: virou rascunho e saiu do site.' : 'Rascunho salvo. Ele não aparece no site até você publicar.');
     }).catch(function (e) {
       setError('edit-error', e.message);
     }).then(function () {
-      btn.disabled = false;
       btn.textContent = label;
+      $('publish').disabled = $('save-draft').disabled = false;
+      if (editing) renderStatus();
     });
   }
 
   function preview() {
     var p = finalPost();
-    var shown = JSON.parse(JSON.stringify(p));
-    Object.keys(files).forEach(function (path) {
-      var json = JSON.stringify(shown).split(path).join(files[path].dataUrl);
-      shown = JSON.parse(json);
-    });
-    if (!shown.pt.title) shown.pt.title = 'Sem título';
-    try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(shown)); }
-    catch (e) { alert('As imagens são grandes demais pra pré-visualizar. Publique pra ver no site.'); return; }
+    if (!p.pt.title) p.pt.title = 'Sem título';
+    try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(p)); }
+    catch (e) { alert('Não consegui abrir a pré-visualização neste navegador.'); return; }
     window.open('/post.html?preview=1', 'juno-preview');
   }
 
   function goBack() {
     if (editing) {
       var draft = readDraft();
-      if (draft && draft.originalSlug === editing.originalSlug && !confirm('Sair do editor? O rascunho fica salvo neste navegador e pode ser recuperado depois.')) return;
+      if (draft && draft.originalSlug === editing.originalSlug && !confirm('Sair sem salvar? As alterações ficam guardadas neste navegador e dá pra recuperar depois.')) return;
     }
     editing = null;
     loadList();
   }
 
-  /* ---------- imagens: redimensiona e converte pra WebP antes de enviar ---------- */
+  /* ---------- imagens: redimensiona, converte pra WebP e envia pro servidor ---------- */
   function processImage(file, maxW) {
     return new Promise(function (resolve, reject) {
       if (!/^image\//.test(file.type)) { reject(new Error('Escolha um arquivo de imagem.')); return; }
@@ -292,16 +312,28 @@
         c.height = Math.round(img.naturalHeight * scale);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
         URL.revokeObjectURL(url);
-        var webp = c.toDataURL('image/webp', 0.82);
-        var isWebp = webp.indexOf('data:image/webp') === 0;
-        var dataUrl = isWebp ? webp : c.toDataURL('image/jpeg', 0.85);
-        var base = slugify(file.name.replace(/\.[^.]+$/, '')).slice(0, 40) || 'imagem';
-        var path = 'assets/img/blog/' + base + '-' + Math.random().toString(36).slice(2, 7) + (isWebp ? '.webp' : '.jpg');
-        files[path] = { base64: dataUrl.split(',')[1], dataUrl: dataUrl };
-        resolve(path);
+        c.toBlob(function (blob) {
+          if (blob && blob.type !== 'image/webp') c.toBlob(resolve, 'image/jpeg', 0.85);
+          else resolve(blob);
+        }, 'image/webp', 0.82);
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Não consegui abrir essa imagem.')); };
       img.src = url;
+    }).then(function (blob) {
+      if (!blob) throw new Error('Não consegui processar essa imagem.');
+      var form = new FormData();
+      form.append('image', blob, 'imagem');
+      form.append('name', file.name);
+      toast('Enviando imagem…');
+      return fetch('/api/upload.php', { method: 'POST', credentials: 'same-origin', body: form }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (res.status === 401) { show('login'); throw new Error('Faça login de novo.'); }
+          if (res.status === 413) throw new Error('Imagem grande demais pro servidor.');
+          if (!res.ok || !data.path) throw new Error(data.error || 'Não consegui enviar a imagem (' + res.status + ').');
+          $('toast').hidden = true;
+          return data.path;
+        });
+      });
     });
   }
 
@@ -371,7 +403,7 @@
       setError('login-error', '');
       var btn = e.target.querySelector('button');
       btn.disabled = true;
-      api('POST', '/api/login', { password: $('password').value }).then(function () {
+      api('POST', '/api/login.php', { password: $('password').value }).then(function () {
         $('password').value = '';
         loadList();
       }).catch(function (err) {
@@ -380,7 +412,7 @@
     });
 
     $('logout').addEventListener('click', function () {
-      api('DELETE', '/api/login', {}).catch(function () {}).then(function () { show('login'); });
+      api('DELETE', '/api/login.php', {}).catch(function () {}).then(function () { show('login'); });
     });
 
     $('new-post').addEventListener('click', function () { openEditor(null); });
@@ -389,10 +421,13 @@
       var del = e.target.closest('[data-del]');
       if (ed) openEditor(ed.getAttribute('data-edit'));
       if (del) removePost(del.getAttribute('data-del'));
+      var st = e.target.closest('[data-status]');
+      if (st) setStatus(st.getAttribute('data-slug'), st.getAttribute('data-status'));
     });
 
     $('back').addEventListener('click', goBack);
-    $('publish').addEventListener('click', publish);
+    $('publish').addEventListener('click', function () { save('published', this); });
+    $('save-draft').addEventListener('click', function () { save('draft', this); });
     $('preview').addEventListener('click', preview);
 
     ['f-title', 'f-excerpt', 'f-body', 'f-date', 'f-category'].forEach(function (id) { $(id).addEventListener('input', onInput); });
@@ -463,10 +498,11 @@
     });
 
     window.addEventListener('beforeunload', function (e) {
-      if (editing && $('publish').disabled) { e.preventDefault(); e.returnValue = ''; }
+      var draft = readDraft();
+      if (editing && ($('publish').disabled || (draft && draft.originalSlug === editing.originalSlug))) { e.preventDefault(); e.returnValue = ''; }
     });
 
-    fetch('/api/login', { credentials: 'same-origin' }).then(function (res) {
+    fetch('/api/login.php', { credentials: 'same-origin' }).then(function (res) {
       return res.json().then(function (data) {
         if (res.status === 503) { show('login'); setError('login-error', data.error); return; }
         if (data.loggedIn) loadList(); else show('login');

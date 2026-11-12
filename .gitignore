@@ -16,7 +16,5 @@ PÁGINAS NOVAS/
 Thumbs.db
 desktop.ini
 
-# Painel do blog (Cloudflare Pages Functions, teste local)
-.dev.vars
-.wrangler/
-node_modules/
+# Painel do blog: credenciais do banco e senha ficam só no servidor
+api/config.php

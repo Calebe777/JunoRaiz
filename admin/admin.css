@@ -80,3 +80,9 @@ h1{margin:0;font-size:clamp(36px,5vw,56px);font-weight:900;letter-spacing:-.02em
 
 /* aviso */
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:50;max-width:calc(100vw - 32px);padding:14px 22px;border-radius:999px;background:var(--fg);color:var(--bg);font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+
+/* status do post */
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:0 9px;margin-right:8px;border-radius:999px;border:1px solid var(--line);font-size:12px;letter-spacing:.3px;color:var(--mute);background:var(--bg);vertical-align:1px}
+.badge.on{background:#DDE8C8;border-color:#B9CC94;color:#2F4A12}
+.status-line{margin:0;font-size:13px;color:var(--mute)}
+.preview-link{align-self:center;font-size:14px}

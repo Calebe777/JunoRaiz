@@ -1,11 +1,26 @@
 /* JUNO Estúdio Criativo, blog (lista de posts e leitura) */
 (function () {
   var esc = JUNO.esc;
-  /* pré-visualização do painel /admin: post.html?preview=1 mostra o rascunho salvo no navegador */
-  if (/[?&]preview=1/.test(location.search)) {
-    try { var draft = JSON.parse(localStorage.getItem('juno-admin-preview')); if (draft) window.JUNO_POSTS = [draft]; } catch (e) {}
+  var POSTS = [];
+  var loaded = false;
+
+  /* posts vêm do banco (api/posts.php). Na pré-visualização do painel /admin,
+     post.html?preview=1 mostra o rascunho salvo no navegador. */
+  function loadPosts(done) {
+    function finish(list) {
+      POSTS = (list || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+      loaded = true;
+      done();
+    }
+    if (/[?&]preview=1/.test(location.search)) {
+      var draft = null;
+      try { draft = JSON.parse(localStorage.getItem('juno-admin-preview')); } catch (e) {}
+      finish(draft ? [draft] : []);
+      return;
+    }
+    fetch('/api/posts.php').then(function (r) { return r.ok ? r.json() : { posts: [] }; })
+      .then(function (d) { finish(d.posts); }, function () { finish([]); });
   }
-  var POSTS = (window.JUNO_POSTS || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
 
   var UI = {
     pt: {
@@ -114,6 +129,7 @@
 
   /* ---------- lista ---------- */
   function renderList() {
+    if (!loaded) return;
     var cats = [];
     POSTS.forEach(function (p) { if (p.category && cats.indexOf(p.category) === -1) cats.push(p.category); });
     var chips = [{ id: 'all', label: t.all }].concat(cats.map(function (c) { return { id: c, label: c }; }));
@@ -139,6 +155,7 @@
 
   /* ---------- leitura ---------- */
   function renderPost() {
+    if (!loaded) return;
     var slug = new URLSearchParams(location.search).get('p');
     var idx = -1;
     for (var i = 0; i < POSTS.length; i++) if (POSTS[i].slug === slug) idx = i;
@@ -229,6 +246,7 @@
     var baseUpdate = navUpdate;
     navUpdate = function () { baseUpdate(); themeNav(); };
     render();
+    loadPosts(render);
     $('themebtn').addEventListener('click', toggleTheme);
     $('langbtn').addEventListener('click', function () {
       lang = lang === 'en' ? 'pt' : 'en';
