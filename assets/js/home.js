@@ -162,8 +162,8 @@
 
   var COVERS = [
     { src: 'assets/img/capas/euvaldo.webp', bg: '#111110' },
-    { src: 'assets/img/projetos/thais/cartao.webp', bg: '#A3121D' },
-    { src: 'assets/img/projetos/rbv/02.webp', bg: '#002D42' },
+    { src: 'assets/img/projetos/thais/cartao.webp?v=2', bg: '#A3121D' },
+    { src: 'assets/img/projetos/rbv/02.webp?v=2', bg: '#002D42' },
     { src: 'assets/img/capas/bnet.webp', bg: '#0A2540' }
   ];
   var STORY_LOGOS = [

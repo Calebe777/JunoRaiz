@@ -4,8 +4,8 @@
 *.fig
 
 # Pastas de material bruto dos projetos (imagens em alta, não usadas pelo site)
-PROJETOS/
-PÁGINAS NOVAS/
+/PROJETOS/
+/PÁGINAS NOVAS/
 
 # Pacotes de entrega
 *.zip
