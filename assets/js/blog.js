@@ -4,7 +4,7 @@
   var POSTS = [];
   var loaded = false;
 
-  /* posts vêm do banco (api/posts.php). Na pré-visualização do painel /admin,
+  /* posts vêm do banco (api/posts). Na pré-visualização do painel /admin,
      post.html?preview=1 mostra o rascunho salvo no navegador. */
   function loadPosts(done) {
     function finish(list) {
@@ -18,7 +18,7 @@
       finish(draft ? [draft] : []);
       return;
     }
-    fetch('/api/posts.php').then(function (r) { return r.ok ? r.json() : { posts: [] }; })
+    fetch('/api/posts').then(function (r) { return r.ok ? r.json() : { posts: [] }; })
       .then(function (d) { finish(d.posts); }, function () { finish([]); });
   }
 

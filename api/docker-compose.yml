@@ -1,0 +1,33 @@
+# API do painel do blog + banco PostgreSQL próprio do site.
+# As senhas ficam em /etc/juno-blog/blog.env no servidor (fora da pasta pública e fora do git).
+name: juno-blog
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file: ${JUNO_ENV_FILE:-/etc/juno-blog/blog.env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: ${JUNO_ENV_FILE:-/etc/juno-blog/blog.env}
+    environment:
+      SITE_ROOT: /site
+    volumes:
+      - ${JUNO_SITE_ROOT:-/var/www/usejuno/home}/assets/img/blog:/site/assets/img/blog
+    ports:
+      - "127.0.0.1:${JUNO_API_PORT:-8790}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

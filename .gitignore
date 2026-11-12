@@ -16,5 +16,13 @@ PÁGINAS NOVAS/
 Thumbs.db
 desktop.ini
 
-# Painel do blog: credenciais do banco e senha ficam só no servidor
-api/config.php
+# Painel do blog: senhas ficam só no servidor (/etc/juno-blog/blog.env)
+*.env
+.env
+
+# Configuração local do Claude Code
+.claude/
+
+# Cache do Python
+__pycache__/
+*.pyc

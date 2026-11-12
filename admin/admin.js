@@ -21,7 +21,7 @@
       body: body ? JSON.stringify(body) : undefined
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (data) {
-        if (res.status === 401 && path !== '/api/login.php') { show('login'); throw new Error(data.error || 'Faça login de novo.'); }
+        if (res.status === 401 && path !== '/api/login') { show('login'); throw new Error(data.error || 'Faça login de novo.'); }
         if (!res.ok) throw new Error(data.error || 'Algo deu errado (' + res.status + ').');
         return data;
       });
@@ -75,7 +75,7 @@
   function loadList() {
     show('list');
     $('list').innerHTML = '<p class="empty">Carregando…</p>';
-    return api('GET', '/api/posts.php?all=1').then(function (data) {
+    return api('GET', '/api/posts?all=1').then(function (data) {
       posts = data.posts || [];
       renderList();
     }).catch(function (e) {
@@ -108,14 +108,14 @@
   function removePost(slug) {
     var p = posts.find(function (x) { return x.slug === slug; });
     if (!p || !confirm('Apagar o post “' + p.pt.title + '” de vez?\n\nIsso não pode ser desfeito. Se quiser só tirar do ar, use “Despublicar”.')) return;
-    api('DELETE', '/api/posts.php', { slug: slug }).then(function () {
+    api('DELETE', '/api/posts', { slug: slug }).then(function () {
       toast('Post apagado.');
       loadList();
     }).catch(function (e) { alert(e.message); });
   }
 
   function setStatus(slug, status) {
-    api('PATCH', '/api/posts.php', { slug: slug, status: status }).then(function () {
+    api('PATCH', '/api/posts', { slug: slug, status: status }).then(function () {
       toast(status === 'published' ? 'Publicado! Já está no ar.' : 'Post despublicado: virou rascunho e saiu do site.');
       loadList();
     }).catch(function (e) { alert(e.message); });
@@ -258,7 +258,7 @@
     var wasPublished = editing.status === 'published';
     $('publish').disabled = $('save-draft').disabled = true;
     btn.textContent = 'Salvando…';
-    api('POST', '/api/posts.php', { post: p, originalSlug: editing.originalSlug, status: status }).then(function (res) {
+    api('POST', '/api/posts', { post: p, originalSlug: editing.originalSlug, status: status }).then(function (res) {
       clearDraft();
       $('draft-status').textContent = '';
       if (status === 'published') {
@@ -271,7 +271,7 @@
       editing.originalSlug = res.slug;
       editing.status = 'draft';
       slugTouched = true;
-      api('GET', '/api/posts.php?all=1').then(function (d) { posts = d.posts || []; }).catch(function () {});
+      api('GET', '/api/posts?all=1').then(function (d) { posts = d.posts || []; }).catch(function () {});
       toast(wasPublished ? 'Post despublicado: virou rascunho e saiu do site.' : 'Rascunho salvo. Ele não aparece no site até você publicar.');
     }).catch(function (e) {
       setError('edit-error', e.message);
@@ -325,7 +325,7 @@
       form.append('image', blob, 'imagem');
       form.append('name', file.name);
       toast('Enviando imagem…');
-      return fetch('/api/upload.php', { method: 'POST', credentials: 'same-origin', body: form }).then(function (res) {
+      return fetch('/api/upload', { method: 'POST', credentials: 'same-origin', body: form }).then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (res.status === 401) { show('login'); throw new Error('Faça login de novo.'); }
           if (res.status === 413) throw new Error('Imagem grande demais pro servidor.');
@@ -403,7 +403,7 @@
       setError('login-error', '');
       var btn = e.target.querySelector('button');
       btn.disabled = true;
-      api('POST', '/api/login.php', { password: $('password').value }).then(function () {
+      api('POST', '/api/login', { password: $('password').value }).then(function () {
         $('password').value = '';
         loadList();
       }).catch(function (err) {
@@ -412,7 +412,7 @@
     });
 
     $('logout').addEventListener('click', function () {
-      api('DELETE', '/api/login.php', {}).catch(function () {}).then(function () { show('login'); });
+      api('DELETE', '/api/login', {}).catch(function () {}).then(function () { show('login'); });
     });
 
     $('new-post').addEventListener('click', function () { openEditor(null); });
@@ -502,7 +502,7 @@
       if (editing && ($('publish').disabled || (draft && draft.originalSlug === editing.originalSlug))) { e.preventDefault(); e.returnValue = ''; }
     });
 
-    fetch('/api/login.php', { credentials: 'same-origin' }).then(function (res) {
+    fetch('/api/login', { credentials: 'same-origin' }).then(function (res) {
       return res.json().then(function (data) {
         if (res.status === 503) { show('login'); setError('login-error', data.error); return; }
         if (data.loggedIn) loadList(); else show('login');
