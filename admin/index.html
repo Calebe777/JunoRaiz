@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel do Blog | JUNO</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<div class="app">
+
+<header class="top" id="top" hidden>
+  <a href="/admin/" class="brand"><span class="juno-logo" aria-hidden="true"></span><span>Blog</span></a>
+  <div class="top-actions">
+    <a class="link" href="/blog.html" target="_blank" rel="noopener">Ver blog ↗</a>
+    <button type="button" class="link" id="logout">Sair</button>
+  </div>
+</header>
+
+<!-- login -->
+<section class="view login" id="v-login" hidden>
+  <form class="card login-card" id="login-form">
+    <span class="juno-logo login-logo" aria-hidden="true"></span>
+    <h1>Painel do blog</h1>
+    <p class="mute">Entre com a senha pra escrever e publicar posts.</p>
+    <label class="field">
+      <span>Senha</span>
+      <input type="password" id="password" autocomplete="current-password" required>
+    </label>
+    <p class="error" id="login-error" role="alert" hidden></p>
+    <button type="submit" class="btn">Entrar</button>
+  </form>
+</section>
+
+<!-- lista -->
+<section class="view wrap-admin" id="v-list" hidden>
+  <div class="list-head">
+    <div>
+      <h1>Posts</h1>
+      <p class="mute" id="list-count"></p>
+    </div>
+    <button type="button" class="btn" id="new-post">+ Novo post</button>
+  </div>
+  <div id="list" class="list" aria-live="polite"></div>
+</section>
+
+<!-- editor -->
+<section class="view wrap-admin" id="v-edit" hidden>
+  <div class="edit-head">
+    <button type="button" class="link" id="back">← Todos os posts</button>
+    <span class="mute" id="draft-status" aria-live="polite"></span>
+  </div>
+
+  <div class="edit-grid">
+    <div class="edit-main">
+      <div class="tabs" role="tablist" aria-label="Idioma">
+        <button type="button" role="tab" class="tab" data-lang="pt" aria-selected="true">Português</button>
+        <button type="button" role="tab" class="tab" data-lang="en" aria-selected="false">Inglês <span class="mute">(opcional)</span></button>
+      </div>
+      <p class="hint" id="en-hint" hidden>Se deixar o inglês em branco, quem vê o site em inglês lê a versão em português.</p>
+
+      <input class="title-input" id="f-title" placeholder="Título do post" aria-label="Título">
+      <textarea class="excerpt-input" id="f-excerpt" rows="2" placeholder="Resumo curto (aparece na lista do blog)" aria-label="Resumo"></textarea>
+
+      <div class="toolbar" role="toolbar" aria-label="Formatação">
+        <button type="button" data-fmt="bold" title="Negrito"><strong>B</strong></button>
+        <button type="button" data-fmt="italic" title="Itálico"><em>I</em></button>
+        <button type="button" data-fmt="h2" title="Subtítulo">Subtítulo</button>
+        <button type="button" data-fmt="h3" title="Subtítulo menor">Sub menor</button>
+        <button type="button" data-fmt="quote" title="Citação">“ Citação</button>
+        <button type="button" data-fmt="ul" title="Lista">• Lista</button>
+        <button type="button" data-fmt="ol" title="Lista numerada">1. Lista</button>
+        <button type="button" data-fmt="link" title="Link">Link</button>
+        <button type="button" data-fmt="image" title="Imagem">Imagem</button>
+        <button type="button" data-fmt="hr" title="Linha divisória">—</button>
+      </div>
+      <textarea class="body-input" id="f-body" placeholder="Escreva o texto aqui. Deixe uma linha em branco entre os parágrafos." aria-label="Texto do post"></textarea>
+      <input type="file" id="body-image" accept="image/*" hidden>
+    </div>
+
+    <aside class="edit-side">
+      <div class="card side-card">
+        <button type="button" class="btn" id="publish">Publicar</button>
+        <button type="button" class="btn ghost" id="preview">Pré-visualizar</button>
+        <p class="error" id="edit-error" role="alert" hidden></p>
+      </div>
+
+      <div class="card side-card">
+        <label class="field">
+          <span>Data</span>
+          <input type="date" id="f-date" required>
+        </label>
+        <label class="field">
+          <span>Categoria</span>
+          <input id="f-category" list="categories" placeholder="Ex.: Branding">
+          <datalist id="categories"></datalist>
+        </label>
+        <label class="field">
+          <span>Endereço do post</span>
+          <input id="f-slug" placeholder="gerado-pelo-titulo" spellcheck="false">
+          <small class="mute" id="slug-url"></small>
+        </label>
+      </div>
+
+      <div class="card side-card">
+        <span class="field-label">Capa <span class="mute">(opcional)</span></span>
+        <div class="cover" id="cover-box">
+          <img id="cover-img" alt="" hidden>
+          <span class="mute" id="cover-empty">Sem capa</span>
+        </div>
+        <div class="row">
+          <label class="btn ghost small">Escolher imagem<input type="file" id="cover-file" accept="image/*" hidden></label>
+          <button type="button" class="btn ghost small" id="cover-remove" hidden>Remover</button>
+        </div>
+      </div>
+
+      <details class="card side-card help">
+        <summary>Como formatar o texto</summary>
+        <ul>
+          <li>Linha em branco separa parágrafos</li>
+          <li><code>## Título</code> subtítulo</li>
+          <li><code>**texto**</code> negrito, <code>*texto*</code> itálico</li>
+          <li><code>&gt; texto</code> citação em destaque</li>
+          <li><code>- item</code> lista, <code>1. item</code> lista numerada</li>
+          <li><code>[texto](https://…)</code> link</li>
+          <li><code>---</code> linha divisória</li>
+        </ul>
+      </details>
+    </aside>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" hidden></div>
+</div>
+<script src="/assets/js/common.js"></script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

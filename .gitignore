@@ -15,3 +15,8 @@ PÁGINAS NOVAS/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Painel do blog (Cloudflare Pages Functions, teste local)
+.dev.vars
+.wrangler/
+node_modules/

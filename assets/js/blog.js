@@ -1,6 +1,10 @@
 /* JUNO Estúdio Criativo, blog (lista de posts e leitura) */
 (function () {
   var esc = JUNO.esc;
+  /* pré-visualização do painel /admin: post.html?preview=1 mostra o rascunho salvo no navegador */
+  if (/[?&]preview=1/.test(location.search)) {
+    try { var draft = JSON.parse(localStorage.getItem('juno-admin-preview')); if (draft) window.JUNO_POSTS = [draft]; } catch (e) {}
+  }
   var POSTS = (window.JUNO_POSTS || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
 
   var UI = {
