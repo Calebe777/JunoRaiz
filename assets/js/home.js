@@ -193,7 +193,7 @@
 
   function projCard(p, i) {
     var c = COVERS[i];
-    return '<a class="card" href="projetos.html#' + PROJ_IDS[i] + '" style="flex: 1 1 420px; min-width: 0">' +
+    return '<a class="card" href="/projetos#' + PROJ_IDS[i] + '" style="flex: 1 1 420px; min-width: 0">' +
       '<div class="cover-box" style="aspect-ratio: 16 / 10; background: ' + c.bg + '">' +
       '<img class="cover" src="' + c.src + '" alt="' + esc(p.alt) + '" loading="lazy">' +
       '<span class="arrow arrow-dot" aria-hidden="true">↗</span></div>' +

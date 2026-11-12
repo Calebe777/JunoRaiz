@@ -95,7 +95,7 @@
         (p.status === 'published' ? '<span class="badge on">Publicado</span>' : '<span class="badge">Rascunho</span>') +
         esc(fmtDate(p.date)) + (p.category ? ' · ' + esc(p.category) : '') + (p.en ? ' · PT + EN' : '') + '</p></div>' +
         '<div class="post-actions">' +
-        (p.status === 'published' ? '<a class="btn ghost small" href="/post.html?p=' + encodeURIComponent(p.slug) + '" target="_blank" rel="noopener">Ver</a>' : '') +
+        (p.status === 'published' ? '<a class="btn ghost small" href="/post?p=' + encodeURIComponent(p.slug) + '" target="_blank" rel="noopener">Ver</a>' : '') +
         '<button type="button" class="btn ghost small" data-edit="' + esc(p.slug) + '">Editar</button>' +
         (p.status === 'published'
           ? '<button type="button" class="btn ghost small" data-status="draft" data-slug="' + esc(p.slug) + '">Despublicar</button>'
@@ -183,7 +183,7 @@
 
   function renderSlugUrl() {
     var s = $('f-slug').value.trim();
-    $('slug-url').textContent = s ? 'usejuno.com.br/post.html?p=' + s : '';
+    $('slug-url').textContent = s ? 'usejuno.com.br/post?p=' + s : '';
   }
 
   function renderStatus() {
@@ -287,7 +287,7 @@
     if (!p.pt.title) p.pt.title = 'Sem título';
     try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(p)); }
     catch (e) { alert('Não consegui abrir a pré-visualização neste navegador.'); return; }
-    window.open('/post.html?preview=1', 'juno-preview');
+    window.open('/post?preview=1', 'juno-preview');
   }
 
   function goBack() {

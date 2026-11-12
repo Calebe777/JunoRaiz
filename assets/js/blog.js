@@ -125,7 +125,7 @@
     var words = String(content(p).body || '').split(/\s+/).filter(Boolean).length;
     return Math.max(1, Math.ceil(words / 200)) + ' ' + t.read;
   }
-  function postUrl(p) { return 'post.html?p=' + encodeURIComponent(p.slug); }
+  function postUrl(p) { return '/post?p=' + encodeURIComponent(p.slug); }
 
   /* ---------- lista ---------- */
   function renderList() {
@@ -164,7 +164,7 @@
     if (idx < 0) {
       document.title = 'Blog | JUNO Estúdio Criativo';
       main.innerHTML = '<section style="padding: clamp(120px, 14vw, 200px) 0"><div class="wrap"><h1 style="margin: 0; font-size: clamp(40px, 5vw, 64px); font-weight: 900">' + esc(t.notFound) + '</h1>' +
-        '<p style="margin-top: 24px"><a href="blog.html" style="font-size: 18px; text-decoration: underline">' + esc(t.notFoundLink) + '</a></p></div></section>';
+        '<p style="margin-top: 24px"><a href="/blog" style="font-size: 18px; text-decoration: underline">' + esc(t.notFoundLink) + '</a></p></div></section>';
       return;
     }
     var p = POSTS[idx];
@@ -179,7 +179,7 @@
     main.innerHTML =
       '<article>' +
       '<header style="padding: clamp(72px, 9vw, 120px) 0 clamp(40px, 5vw, 64px)"><div class="wrap">' +
-      '<a href="blog.html" style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; text-decoration: none; color: var(--mute)">← ' + esc(t.back) + '</a>' +
+      '<a href="/blog" style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; text-decoration: none; color: var(--mute)">← ' + esc(t.back) + '</a>' +
       '<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px">' +
       (p.category ? '<span class="chip">' + esc(p.category) + '</span>' : '') +
       '<span class="chip">' + esc(fmtDate(p.date)) + '</span><span class="chip">' + esc(readTime(p)) + '</span></div>' +
